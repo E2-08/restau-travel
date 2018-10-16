@@ -1,0 +1,132 @@
+        .ListRowcontent {
+        display: flex;
+        flex-direction: row;
+        -webkit-border-radius: 10px 10px 10px 10px;
+        -webkit-box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
+        border-radius: 10px 10px 10px 10px;
+        background: #fff;
+        padding: 30px;
+        width:100%;
+        max-width: 95%;
+        margin-top:3%;
+        position: relative;
+        padding: 10px;
+        box-shadow: 0 3px 6px 0 rgba(0,0,0,0.3);
+        text-align: center;
+        height: 150px;
+        max-height:150px;
+    }
+
+    .menu
+{
+background-color: #00547E;
+border-bottom: 4px solid #04A3ED;
+width:100%;
+height: auto;
+padding: 0 10px;
+position: fixed;
+margin: 0px;
+z-index: 1;
+opacity: 0.9;
+}
+
+.menu  .navbar-nav > .active > a
+{
+background-color : #04A3ED;
+color: white;
+font-weight: bold;
+}
+
+.menu  .navbar-nav >  li >  a
+{
+font-size: 13px;
+color: white;
+padding: 10px 35px;
+
+}
+.menu  .navbar-nav >  li >  a:hover
+{
+background-color: #04A3ED;
+}
+
+.navbar-header > a
+{
+font-family: 'Ubuntu Condensed', sans-serif;
+padding: 0px;
+margin: 0px;
+text-decoration: none;
+color: white;
+font-size: 25px;
+padding: 5px 30px;
+}
+.navbar-header > a:hover
+{
+text-decoration: none;
+color: #04A3ED;
+}
+
+.rt-logo{
+margin-left: 3.5%;
+margin-right: 55%;
+padding-left: 2%;
+}
+.header{
+background-color:#04A3ED;
+height: 57px;
+}
+#icon{
+width: 20%
+}
+
+.content{
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+}
+.pub{
+flex: 1;
+}
+.ListR{
+display: flex;
+flex-direction:column;
+width: 70%;
+}
+.rtTop{
+margin-top: 8%;
+}
+.searchZone{
+    margin-top: 2%;
+}
+.searchForm{
+display: flex;
+flex-direction: row;
+justify-content:space-around;
+width: 80%;
+padding-top: 2%;
+
+}
+.btn-recherche{
+width: 100%;
+}
+.rowRt{
+margin-top: 2%;
+}
+.imgRt{
+    background-size:contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    max-height: 145px;
+    margin-left: -4.5%;
+}
+.imgRt-id{
+    background-image: url("/img/bg-img/r5.jpg");  
+}
+.imgRt-2{
+    background-image: url("/img/bg-img/r4.jpg");  
+}
+        
+.aside-card{
+    width:240px;
+    max-width: 240px;
+    
+}

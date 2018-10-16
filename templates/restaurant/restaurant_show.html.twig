@@ -1,0 +1,134 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+<div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <!--Card-->
+                <div class="card">
+                    <!--Card image-->
+                    <img class="img-fluid" src="https://mdbootstrap.com/img/Photos/Others/images/43.jpg" alt="Card image cap">
+
+                    <!--Card content-->
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-8">
+                                <!--Title-->
+                                <h4 class="card-title">Restaurant Name</h4>
+                                <!--Text-->
+                                <p class="card-text">Some quick example text to build on the card title and make up the
+                                    bulk of
+                                    the card's
+                                    content.</p>
+                                <a href="#" class="btn btn-primary">Button</a>
+                            </div>
+
+                            <div class="note col-4">
+                                <div class="col-xs-12 text-center">
+                                    <h1 class="rating-num">4.0</h1>
+                                    <div class="rating"><!--rating-->
+                                        <span class="fa fa-start"></span><span class="fa fa-star"></span><span class="fa fa-star">
+                                        </span><span class="fa fa-star"></span><span class="fa fa-start"></span>
+                                    </div>
+                                    <div>
+                                        <span class="fa fa-user"></span>1,050,008 total
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--/.Card-->
+                <!--Card-->
+                <div class="card mt2pc">
+                    <section class=" ">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-12 text-center ">
+                                    <nav class="nav-justified ">
+                                        <div class="nav nav-tabs " id="nav-tab" role="tablist">
+                                            <a class="nav-item nav-link active" id="pop1-tab" data-toggle="tab" href="#pop1"
+                                                role="tab" aria-controls="pop1" aria-selected="true">Menus</a>
+                                            <a class="nav-item nav-link" id="pop2-tab" data-toggle="tab" href="#pop2"
+                                                role="tab" aria-controls="pop2" aria-selected="false">Card menu</a>
+                                            <a class="nav-item nav-link" id="pop3-tab" data-toggle="tab" href="#pop3"
+                                                role="tab" aria-controls="pop3" aria-selected="false">Notices</a>
+
+                                        </div>
+                                    </nav>
+                                    <div class="tab-content" id="nav-tabContent">
+                                        <div class="tab-pane fade show active" id="pop1" role="tabpanel"
+                                            aria-labelledby="pop1-tab">
+                                            <div class="pt-3"></div>
+                                            <p>1. There's another way to do this for layouts that doesn't have to put
+                                                the navbar inside the
+                                                container, and which doesn't require any CSS or Bootstrap overrides.
+
+                                                Simply place a div with the Bootstrap container class around the
+                                                navbar. This will center
+                                                the links inside the navbar:</p>
+                                        </div>
+                                        <div class="tab-pane fade" id="pop2" role="tabpanel" aria-labelledby="pop2-tab">
+                                            <div class="pt-3"></div>
+                                            <p>2. There's another way to do this for layouts that doesn't have to put
+                                                the navbar inside the
+                                                container, and which doesn't require any CSS or Bootstrap overrides.
+
+                                                Simply place a div with the Bootstrap container class around the
+                                                navbar. This will center
+                                                the links inside the navbar:
+
+                                        </div>
+                                        <div class="tab-pane fade" id="pop3" role="tabpanel" aria-labelledby="pop3-tab">
+                                            <div class="pt-3"></div>
+                                            <p>3. There's another way to do this for layouts that doesn't have to put
+                                                the navbar inside the
+                                                container, and which doesn't require any CSS or Bootstrap overrides.
+
+                                                Simply place a div with the Bootstrap container class around the
+                                                navbar. This will center
+                                                the links inside the navbar:
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+                <!--/.Card-->
+
+            </div>
+            <div class="col-md-4">
+                <!--Card-->
+                <div class="card">
+                    <!--Card content-->
+                    <div class="body-cardRt asideCard">
+                        <div class="container-fluid">
+                            <div>Localisation</div>
+                            <div class="row">
+                                <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d11880.492291371422!2d12.4922309!3d41.8902102!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x28f1c82e908503c4!2sColosseo!5e0!3m2!1sit!2sit!4v1524815927977"
+                                    width="100%" height="320" frameborder="0" style="border:0" allowfullscreen></iframe>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--/.Card-->
+
+
+                <div class="cardRt">
+                    <!--Card content-->
+                    <div class="body-cardRt">
+                        <div class="container-fluid">
+                            <div class="row aside-btnwrapper">
+                                <button type="button" class="btn-lg btn-primary">Primary</button>
+                                <button type="button" class="btn-lg btn-secondary">Secondary</button>
+                                <button type="button" class="btn-lg btn-success">Success</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
