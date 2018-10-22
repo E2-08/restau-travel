@@ -1,20 +1,77 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello {{ controller_name }}!{% endblock %}
+{% block title %}Nos magnifiques annonces{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    <div class="container">
+        <h1 class="my-3">voici les annonces</h1>
+        <div class="row">
+            <div class="col-8">
+                {% for restau in restaurants %}
+                    <hr>
+                    <div class="row mb-4" style="max-heigth:150px; box-sizing:border-box;">
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+                        <div class="col-md-4">
+                            <a href="{{path('restaurant_show', {'slug': restau.slug})}}">
+                                <img src="{{restau.coverimages}}" alt="Image du restaurant" style="height:150px; width:100%; display:Block">
+                            </a>
+                        </div>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'src/Controller/RestaurantController.php'|file_link(0) }}">src/Controller/RestaurantController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'templates/restaurant/index.html.twig'|file_link(0) }}">templates/restaurant/index.html.twig</a></code></li>
-    </ul>
-</div>
+                        <div class="col-md-8">
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <a href="{{path('restaurant_show', {'slug': restau.slug})}}">
+                                        <h4>{{restau.name}}</h4>
+                                    </a>
+                                    <p>{{restau.adress}}</p>
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                            <div class="famfamfam-flag-fr"></div>
+                                            <div class="famfamfam-flag-uk"></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4 text-center">
+                                    <h2>4/<small>5</small>
+                                    </h2>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                    <a href="{{path('restaurant_show', {'slug': restau.slug})}}">
+                                        <button href="{{path('restaurant_show', {'slug': restau.slug})}}" type="button" class="btn btn-outline-secondary mt-3">En savoir plus</button>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                {% endfor %}
+            </div>
+            <div class="col-4">
+                {% for i in 0..2 %}
+                    <div class="col-md-12">
+                        <div class="card bg-light mb-3">
+                            <div class="card-header text-center">
+                                3 chambre,<strong>49&euro;/nuit</strong>
+                                <small>Pas encore noté</small>
+                            </div>
+                            <img src="http://placehold.it/1000x400" alt="Image du restaurant" style="height:200px; width:100%; display:Block">
+                            <div class="cord-body ml-3">
+                                <h4 class="card-title">
+                                    restaurant de ouf !!!
+                                </h4>
+                                <p class="card-text">
+                                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nam dicta porro rem, ducimus hic, blanditiis nemo, dolorem aliquid dolor aspernatur Rerum, assumenda ut?
+                                </p>
+                                <a href="#" class="btn btn-secondary mb-3">En savoir plus</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
 {% endblock %}

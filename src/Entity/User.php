@@ -1,13 +1,17 @@
 <?php
 
 namespace App\Entity;
-
+use Cocur\Slugify\Slugify;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
-class User
+class User implements UserInterface
 {
     /**
      * @ORM\Id()
@@ -19,23 +23,123 @@ class User
     /**
      * @ORM\Column(type="string", length=255)
      */
+    private $firstName;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $lastName;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $avatar;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $hash;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $slug;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
     private $email;
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $username;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\OneToMany(targetEntity="App\Entity\Restaurant", mappedBy="author")
      */
-    private $passsword;
+    private $restaurants;
 
-    public $confirm_password;
+     /**
+     * slug initialization
+     * 
+     *@ORM\PrePersist
+     *@ORM\PreUpdate
+     *
+     * @return void
+     */
+    public function initializeSlug(){
+        if(empty($this->slug)){
+            $slugify = new Slugify();
+            $this->slug = $slugify->slugify($this->firstName .' ' .$this->lastName);
+        }
+    }
 
+
+
+    public function __construct()
+    {
+        $this->restaurants = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getFirstName(): ?string
+    {
+        return $this->firstName;
+    }
+
+    public function setFirstName(string $firstName): self
+    {
+        $this->firstName = $firstName;
+
+        return $this;
+    }
+
+    public function getLastName(): ?string
+    {
+        return $this->lastName;
+    }
+
+    public function setLastName(string $lastName): self
+    {
+        $this->lastName = $lastName;
+
+        return $this;
+    }
+
+    public function getAvatar(): ?string
+    {
+        return $this->avatar;
+    }
+
+    public function setAvatar(?string $avatar): self
+    {
+        $this->avatar = $avatar;
+
+        return $this;
+    }
+
+    public function getHash(): ?string
+    {
+        return $this->hash;
+    }
+
+    public function setHash(string $hash): self
+    {
+        $this->hash = $hash;
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
+
+        return $this;
     }
 
     public function getEmail(): ?string
@@ -50,28 +154,53 @@ class User
         return $this;
     }
 
-    public function getUsername(): ?string
+    /**
+     * @return Collection|Restaurant[]
+     */
+    public function getRestaurants(): Collection
     {
-        return $this->username;
+        return $this->restaurants;
     }
 
-    public function setUsername(string $username): self
+    public function addRestaurant(Restaurant $restaurant): self
     {
-        $this->username = $username;
-
-        return $this;
-    }
-    public function getPasssword(): ?string
-    {
-        return $this->passsword;
-    }
-
-    public function setPasssword(string $passsword): self
-    {
-        $this->passsword = $passsword;
+        if (!$this->restaurants->contains($restaurant)) {
+            $this->restaurants[] = $restaurant;
+            $restaurant->setAuthor($this);
+        }
 
         return $this;
     }
 
+    public function removeRestaurant(Restaurant $restaurant): self
+    {
+        if ($this->restaurants->contains($restaurant)) {
+            $this->restaurants->removeElement($restaurant);
+            // set the owning side to null (unless already changed)
+            if ($restaurant->getAuthor() === $this) {
+                $restaurant->setAuthor(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getRoles()
+    {
+        return array('ROLE_USER');
+    }
+  
+     public function getPassword()
+    {
+        return $this->hash;
+    }
+
+    public function getSalt(){}
+
+    public function getUsername(){
+        return $this->email;
+    }
+
+    public function eraseCredentials(){}
 
 }

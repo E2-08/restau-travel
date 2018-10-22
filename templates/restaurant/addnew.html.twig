@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+{% block title %}{% endblock %}
+{% block body %}
+    <div class="container">
+        <h1>Attirez des nouveaux clients dans votre restaurant</h1>
+        <h5>Dites-nous en plus sur votre établissement.</h5>
+        {{form_start(form)}}
+        {{form_widget(form)}}
+        <input type="submit" value="save" class="btn btn-primary"}">
+        {{form_end(form)}}
+    </div>
+{% endblock %}

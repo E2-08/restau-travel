@@ -1,0 +1,153 @@
+/***
+ body
+*/
+body{
+    font-family: 'Roboto', sans-serif;
+    font: 15px;
+}
+
+/**
+* css restaurant page
+*/
+.rt-star{
+    font-size: 2em;
+    padding-top: 3%;
+    text-align: center;
+    color: #ff6347;
+}
+.rt-restau-show-title{
+    padding-top: 13%;
+}
+.rt-flag{
+  line-height:5;
+}
+#img-profil-resatu{
+    width: 34%;
+    height: 40%;
+    margin-top:10%;
+  
+		border:2px solid #fff;
+		-moz-box-shadow: 0px 6px 5px #ccc;
+		-webkit-box-shadow: 0px 6px 5px #ccc;
+		box-shadow: 0px 6px 5px #ccc;
+		-moz-border-radius:3px;
+		-webkit-border-radius:3px;
+	
+}
+.rt-restau-show-social-icon{
+    font-size: 2em;
+    margin: 0 2% 0 2%;
+
+}
+.c-fb{
+    color: #3b5998;
+}
+.c-tw{
+    color: #1da1f2;
+}
+.c-sn{
+    color: #FFCC00;
+}
+.c-ins{
+    color: #8a3ab9
+}
+.icon-localisation{
+   
+    margin-left: 1%;
+}
+.rt-btn-reservation-avis{
+ display: flex;
+flex-direction: row;
+justify-content: space-between;
+}
+.rt-btn-reservation-avis a{
+  
+    padding: 1% 1% 1% 1%;
+    width: 45%;
+    line-height: 3;
+    height:40%;
+    font:blod 15px;
+}
+.tab-contentn{
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+   
+    
+    padding: 10px;
+}
+
+.rt-nav-tabs{
+border-bottom: 1px solid #ddd;
+}
+
+.tab-pane{
+    background-color: #ff6347;
+    height: 100%;
+}
+
+/***/
+
+.tabs {
+  margin-top: 0;
+}
+.rt-tab{
+width: 100%;
+}
+#tab-button {
+  display: table;
+  table-layout: fixed;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+#tab-button li {
+  display: table-cell;
+  width: 20%;
+}
+#tab-button li a {
+  display: block;
+  padding: .5em;
+  background: #eee;
+  border: 1px solid #ddd;
+  text-align: center;
+  color: #000;
+  text-decoration: none;
+}
+#tab-button li:not(:first-child) a {
+  border-left: none;
+}
+#tab-button li a:hover,
+#tab-button .is-active a {
+  border-bottom-color: transparent;
+  background: #fff;
+}
+.tab-contents {
+  padding: .5em 2em 1em;
+  border: 1px solid #ddd;
+  max-width: 100%;
+}
+
+
+
+.tab-button-outer {
+  display: none;
+}
+.tab-contents {
+  margin-top: 20px;
+}
+@media screen and (min-width: 768px) {
+  .tab-button-outer {
+    position: relative;
+    z-index: 2;
+    display: block;
+  }
+  .tab-select-outer {
+    display: none;
+  }
+  .tab-contents {
+    position: relative;
+    top: -1px;
+    margin-top: 0;
+  }
+}

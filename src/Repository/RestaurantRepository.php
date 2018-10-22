@@ -8,7 +8,7 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
  * @method Restaurant|null find($id, $lockMode = null, $lockVersion = null)
- * @method Restaurant|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Restaurant|null findOneBy($slug,array $criteria, array $orderBy = null)
  * @method Restaurant[]    findAll()
  * @method Restaurant[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */

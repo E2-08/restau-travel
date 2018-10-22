@@ -1,0 +1,28 @@
+/**
+ * FAMFAMFAM flag icons CSS.
+ *
+ * Examples:
+ * <i class="famfamfam-flag-fr"> France</i>
+ * <i class="famfamfam-flag-us"> United States</i>
+ */
+[class^="famfamfam-flag"],
+[class*=" famfamfam-flag"] {
+  display: inline-block;
+  width: 35px;
+  height: 25px;
+  line-height: 5;
+  /* vertical2align: text-top; */
+  background-size: cover;
+  margin-top: 2%;
+  background-position: 0 0;
+  background-repeat: no-repeat;
+}
+
+
+.famfamfam-flag-fr {background-image: url("/img/flags/fr.jpg");}
+.famfamfam-flag-uk {background-image: url("/img/flags/uk.jpg");}
+.famfamfam-flag-it{background-image: url("/img/flags/it.jpg");}
+.famfamfam-flag-po{background-image: url("/img/flags/po.jpg");}
+.famfamfam-flag-sp{background-image: url("/img/flags/sp.jpg");}
+.famfamfam-flag-ge{background-image: url("/img/flags/ge.jpg");}
+.famfamfam-flag-nl{background-image: url("/img/flags/nl.jpg");}

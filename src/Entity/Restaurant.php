@@ -2,9 +2,35 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use Cocur\Slugify\Slugify;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+
+
+/*Prenom
+Nom
+Nom restaurant
+Email
+phone
+Adresse
+code postal
+ville
+pays
+nombre total de reservation/j
+je souhaire recevoir les offres
+description
+Horaires d'ouverture
+ticket moyen
+
+Moyens de paiement
+type de restaurataion
+Ambiance
+Cuisine
+Déco
+Service
+Qualité/Prix*/
+
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\RestaurantRepository")
@@ -78,12 +104,49 @@ class Restaurant
      */
     private $bookings;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $slug;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    public $coverimages;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Images", mappedBy="restaurant", orphanRemoval=true)
+     */
+    private $images;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="restaurants")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $author;
+
+    /**
+     * slug initialization
+     * 
+     *@ORM\PrePersist
+     *@ORM\PreUpdate
+     *
+     * @return void
+     */
+    public function initializeSlug(){
+        if(empty($this->slug)){
+            $slugify = new Slugify();
+            $this->slug = $slugify->slugify($this->name);
+        }
+    }
+
     public function __construct()
     {
         $this->languages = new ArrayCollection();
         $this->notices = new ArrayCollection();
         $this->servicelanguages = new ArrayCollection();
         $this->bookings = new ArrayCollection();
+        $this->images = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -186,7 +249,28 @@ class Restaurant
 
         return $this;
     }
+public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
 
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    public function setConverimages(string $converimages): self
+    {
+        $this->coverimages = $converimages;
+        return $this;
+    }
+
+    public function getConverimages(): ?string
+    {
+        return $this->coverimages;
+    }
 
     /**
      * @return Collection|Language[]
@@ -246,7 +330,6 @@ class Restaurant
                 $notice->setRestaurant(null);
             }
         }
-
         return $this;
     }
 
@@ -308,4 +391,49 @@ class Restaurant
 
         return $this;
     }
+
+    /**
+     * @return Collection|Images[]
+     */
+    public function getImages(): Collection
+    {
+        return $this->images;
+    }
+
+    public function addImage(Images $image): self
+    {
+        if (!$this->images->contains($image)) {
+            $this->images[] = $image;
+            $image->setRestaurant($this);
+        }
+
+        return $this;
+    }
+
+    public function removeImage(Images $image): self
+    {
+        if ($this->images->contains($image)) {
+            $this->images->removeElement($image);
+            // set the owning side to null (unless already changed)
+            if ($image->getRestaurant() === $this) {
+                $image->setRestaurant(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getAuthor(): ?User
+    {
+        return $this->author;
+    }
+
+    public function setAuthor(?User $author): self
+    {
+        $this->author = $author;
+
+        return $this;
+    }
+
+   
 }
