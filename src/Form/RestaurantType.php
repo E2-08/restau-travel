@@ -2,37 +2,21 @@
 
 namespace App\Form;
 
+use App\Form\AppType;
 use App\Entity\Restaurant;
-use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
-class RestaurantType extends AbstractType
+class RestaurantType extends AppType
 {
-    /**
-     * This function allows you to recover from a field
-     *
-     * @param string $label
-     * @param string $placeholder
-     * @return array
-     */
-    private function getConfig($label,$placeholder){
-        return[
-            'label' => $label,
-            'attr' => ['placeholder' => $placeholder]
-        ];
-
-    }
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', TextType::class,$this->getConfig('Nom','Nom'))
-            ->add('adress',TextType::class,$this->getConfig('Adresse','Adresse'))
+            ->add('name', TextType::class,$this->getConfig('Name','Restaurant name'))
+            ->add('adress',TextType::class,$this->getConfig('Adress','Adress'))
             ->add('phone',TextType::class,$this->getConfig('Phone','Phone'))
-            ->add('email',TextType::class,$this->getConfig('Email','Email'))
-            ->add('city',TextType::class,$this->getConfig('Ville','Ville'))
-            ->add('country',TextType::class,$this->getConfig('Adresse','Pays'))
+            ->add('city',TextType::class,$this->getConfig('City','City'))
             ->add('coverimages');
     }
 

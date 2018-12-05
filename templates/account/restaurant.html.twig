@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+{% block body %}
+<div class="row">
+    <div class="col-8">
+        {% for restau in user.restaurants %}
+        <pre>
+            {{ dump(user) }}
+        </pre>
+            <hr>
+            <div class="row mb-4" style="max-heigth:150px; box-sizing:border-box;">
+
+                <div class="col-md-4">
+                    <a href="{{path('restaurant_show', {'slug': restau.slug})}}">
+                        <img src="{{restau.coverimages}}" alt="Image du restaurant" style="height:150px; width:100%; display:Block">
+                    </a>
+                </div>
+
+                <div class="col-md-8">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <a href="{{path('restaurant_show', {'slug': restau.slug})}}">
+                                <h4>{{restau.name}}</h4>
+                            </a>
+                            <p>{{restau.adress}}</p>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="famfamfam-flag-fr"></div>
+                                    <div class="famfamfam-flag-uk"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 text-center">
+                            <h2>4/<small>5</small>
+                            </h2>
+                            <span class="fa fa-star"></span>
+                            <span class="fa fa-star"></span>
+                            <span class="fa fa-star"></span>
+                            <span class="fa fa-star"></span>
+                            <span class="fa fa-star"></span>
+                            <a href="{{path('restaurant_show', {'slug': restau.slug})}}">
+                                <button href="{{path('restaurant_show', {'slug': restau.slug})}}" type="button" class="btn btn-outline-secondary mt-3">En savoir plus</button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        {% endfor %}
+    </div>
+{% endblock %}

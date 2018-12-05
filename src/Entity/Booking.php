@@ -2,12 +2,12 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\BookingRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Booking
 {
@@ -19,160 +19,130 @@ class Booking
     private $id;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="bookings")
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $bookingAt;
+    private $booker;
 
     /**
-     * @ORM\Column(type="time")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Restaurant", inversedBy="bookings")
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $bookingtime;
+    private $restaurant;
+
+    /**
+     * @ORM\Column(type="string")
+     * @Assert\Date(message="Attention, la date d'arrivée doit être au bon format !")
+     */
+    private $startDate;
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    private $startHour;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $number;
+    private $numberOfPeople;
 
     /**
-     * @ORM\Column(type="time")
+     * @ORM\Column(type="datetime")
      */
-    private $bookingstart;
+    private $createdAt;
+
+    public $tempDate;
+    public $tempTime;
+    public $tempPeople;
 
     /**
-     * @ORM\Column(type="time")
+     * 
+     * @ORM\PrePersist
+     * @return void
      */
-    private $bookingend;
-
-    /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\User", inversedBy="bookings")
-     */
-    private $client;
-
-    /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Restaurant", inversedBy="bookings")
-     */
-    private $restaurant;
-
-    public function __construct()
+    public function prePersist()
     {
-        $this->client = new ArrayCollection();
-        $this->restaurant = new ArrayCollection();
+        if (empty($this->createdAt)) {
+            $this->createdAt = new \DateTime();
+        }
     }
 
-    public function getId(): ?int
+    public function getId() : ? int
     {
         return $this->id;
     }
 
-    public function getBookingAt(): ?\DateTimeInterface
+    public function getBooker() : ? User
     {
-        return $this->bookingAt;
+        return $this->booker;
     }
 
-    public function setBookingAt(\DateTimeInterface $bookingAt): self
+    public function setBooker(? User $booker) : self
     {
-        $this->bookingAt = $bookingAt;
+        $this->booker = $booker;
 
         return $this;
     }
 
-    public function getBookingtime(): ?\DateTimeInterface
-    {
-        return $this->bookingtime;
-    }
-
-    public function setBookingtime(\DateTimeInterface $bookingtime): self
-    {
-        $this->bookingtime = $bookingtime;
-
-        return $this;
-    }
-
-    public function getNumber(): ?int
-    {
-        return $this->number;
-    }
-
-    public function setNumber(int $number): self
-    {
-        $this->number = $number;
-
-        return $this;
-    }
-
-    public function getBookingstart(): ?\DateTimeInterface
-    {
-        return $this->bookingstart;
-    }
-
-    public function setBookingstart(\DateTimeInterface $bookingstart): self
-    {
-        $this->bookingstart = $bookingstart;
-
-        return $this;
-    }
-
-    public function getBookingend(): ?\DateTimeInterface
-    {
-        return $this->bookingend;
-    }
-
-    public function setBookingend(\DateTimeInterface $bookingend): self
-    {
-        $this->bookingend = $bookingend;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|User[]
-     */
-    public function getClient(): Collection
-    {
-        return $this->client;
-    }
-
-    public function addClient(User $client): self
-    {
-        if (!$this->client->contains($client)) {
-            $this->client[] = $client;
-        }
-
-        return $this;
-    }
-
-    public function removeClient(User $client): self
-    {
-        if ($this->client->contains($client)) {
-            $this->client->removeElement($client);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Restaurant[]
-     */
-    public function getRestaurant(): Collection
+    public function getRestaurant() : ? Restaurant
     {
         return $this->restaurant;
     }
 
-    public function addRestaurant(Restaurant $restaurant): self
+    public function setRestaurant(? Restaurant $restaurant) : self
     {
-        if (!$this->restaurant->contains($restaurant)) {
-            $this->restaurant[] = $restaurant;
-        }
+        $this->restaurant = $restaurant;
 
         return $this;
     }
 
-    public function removeRestaurant(Restaurant $restaurant): self
+    public function getStartDate() : ? string
     {
-        if ($this->restaurant->contains($restaurant)) {
-            $this->restaurant->removeElement($restaurant);
-        }
+        return $this->startDate;
+    }
+
+    public function setStartDate(string $startDate) : self
+    {
+        $this->startDate = $startDate;
 
         return $this;
     }
+
+    public function getStartHour() : ? string
+    {
+        return $this->startHour;
+    }
+
+    public function setStartHour(string $startHour) : self
+    {
+        $this->startHour = $startHour;
+
+        return $this;
+    }
+
+    public function getNumberOfPeople() : ? int
+    {
+        return $this->numberOfPeople;
+    }
+
+    public function setNumberOfPeople(int $numberOfPeople) : self
+    {
+        $this->numberOfPeople = $numberOfPeople;
+
+        return $this;
+    }
+
+    public function getCreatedAt() : ? \DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeInterface $createdAt) : self
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+
 }

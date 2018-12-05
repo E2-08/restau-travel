@@ -1,0 +1,28 @@
+<div class="d-flex accontHeading flex-wrap mt-3 py-5 px-3 bg-light">
+    <img src="{{app.user.avatar}}" class="avatar avatar-medium" alt="Avatar de {{ app.user.fullName}}">
+    <div class="px-4">
+        <span class="py-0">
+            <h5>INFORMATIONS PERSONNELLES</h5>
+        </span>
+        <div class="d-flex flex-column py-3">
+            <strong>
+                <h3>{{user.fullName}}</h3>
+            </strong>
+            <p>Email :
+                {{user.email}}</p>
+            <p>Phone :
+                {{user.phone}}</p>
+            <div class="d-flex flex-wrap">
+                <a href="">
+                    <button href="" type="button" class="btn btn-outline-secondary">Modifier mes information</button>
+                </a>
+                <a href="">
+                    <button href="" type="button" class="btn btn-outline-secondary">Mot de passe</button>
+                </a>
+                <a href="">
+                    <button href="" type="button" class="btn btn-outline-secondary">Supprimer mon compte</button>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

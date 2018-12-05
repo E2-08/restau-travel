@@ -18,6 +18,16 @@ class BookingRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Booking::class);
     }
+    public function findCurrent($value)
+    {
+        return $this->createQueryBuilder('b')
+            ->andWhere('b.restaurant = :val')
+            ->setParameter('val', $value)
+            ->orderBy('b.id', 'ASC')
+            ->setMaxResults(10)
+            ->getQuery()
+            ->getResult();
+    }
 
 //    /**
 //     * @return Booking[] Returns an array of Booking objects
@@ -34,7 +44,7 @@ class BookingRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
-    */
+     */
 
     /*
     public function findOneBySomeField($value): ?Booking
@@ -46,5 +56,5 @@ class BookingRepository extends ServiceEntityRepository
             ->getOneOrNullResult()
         ;
     }
-    */
+     */
 }

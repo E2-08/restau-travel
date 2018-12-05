@@ -1,0 +1,570 @@
+.Detai-resto .photo,
+.coordonnee {
+  height: 350px;
+  min-width: 400px;
+  flex: 1;
+}
+.Detai-resto .photo {
+  background-size: cover;
+}
+
+.Detai-resto .coordonnee {
+  max-height: 250px;
+}
+
+.Detai-resto .coordonnee .adress,
+.coordonnee .options {
+  min-width: 250px;
+}
+.Detai-resto .coordonnee .adress {
+  flex: 3;
+}
+.Detai-resto .coordonnee .options {
+  flex: 1;
+}
+
+.options #btn-reservation,
+#btn-avis {
+  padding-left: 3px;
+  padding-right: 3px;
+}
+.options a {
+  background-color: #37adca;
+  color: #ffffff;
+}
+
+.options > div {
+  flex: 1;
+}
+.options .btn {
+  width: 100%;
+}
+
+.Detai-resto-content {
+  min-width: 500px;
+  flex: 3;
+}
+.Detai-resto-pub {
+  min-width: 350px;
+  flex: 1;
+}
+#dr-headaer {
+  min-width: 500px;
+  min-height: 340px;
+}
+
+/* Tabs*/
+
+#tabs {
+  color: #2f4148;
+  width: 100%;
+}
+
+#tabs .nav-tabs .nav-item.show .nav-link,
+.nav-tabs .nav-link.active {
+  background-color: transparent;
+  border-color: transparent transparent #f3f3f3;
+  border-bottom: 4px solid !important;
+  font-size: 20px;
+  font-weight: bold;
+}
+/* .nav-tabs */
+#tabs .nav-link {
+  border: 1px solid transparent;
+  border-top-left-radius: 0.25rem;
+  border-top-right-radius: 0.25rem;
+  color: #37adca;
+  font-size: 20px;
+}
+
+/* ============================================================================== */
+
+/***
+ body
+*/
+body {
+  font-family: "Roboto", sans-serif;
+  font: 15px;
+}
+.Rt-gb {
+  background-color: #eceee3;
+  border-bottom: 5px solid red;
+  border-bottom-color: #252a2d;
+}
+Rt-navbar {
+  color: #f7f7f7;
+}
+a {
+  color: #298eea;
+}
+.dv-content-center {
+  margin: 0 auto;
+}
+.btn100 {
+  width: 100%;
+}
+.w100 {
+  width: 100%;
+}
+/* container */
+
+.container {
+  max-width: 70%;
+  margin: 0 auto;
+}
+
+div.container-fluid {
+  margin-top: 20px;
+}
+
+.Rt-container {
+  max-width: 70%;
+}
+/**
+* css restaurant page
+*/
+.rt-star {
+  font-size: 2em;
+  padding-top: 3%;
+  text-align: center;
+  color: #dbc973;
+}
+table th,
+td {
+  margin-right: 3px;
+}
+.rt-star-sml {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  font-size: 1em;
+  color: #dbc973;
+}
+.rt-restau-show-title {
+  padding-top: 13%;
+}
+.rt-flag {
+  line-height: 5;
+}
+#img-profil-resatu {
+  width: 34%;
+  height: 40%;
+  margin-top: 10%;
+
+  border: 2px solid #fff;
+  -moz-box-shadow: 0px 6px 5px #ccc;
+  -webkit-box-shadow: 0px 6px 5px #ccc;
+  box-shadow: 0px 6px 5px #ccc;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+}
+.rt-restau-show-social-icon {
+  font-size: 2em;
+  margin: 0 2% 0 2%;
+}
+.c-fb {
+  color: #3b5998;
+}
+.c-tw {
+  color: #1da1f2;
+}
+.c-sn {
+  color: #ffcc00;
+}
+.c-ins {
+  color: #8a3ab9;
+}
+.icon-localisation {
+  margin-left: 1%;
+}
+.rt-btn-reservation-avis {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.rt-btn-reservation-avis a {
+  padding: 1% 1% 1% 1%;
+  width: 45%;
+  line-height: 3;
+  height: 40%;
+  font: blod 15px;
+}
+.tab-contentn {
+  border-left: 1px solid #ddd;
+  border-right: 1px solid #ddd;
+
+  padding: 10px;
+}
+
+.rt-nav-tabs {
+  border-bottom: 1px solid #ddd;
+}
+
+.tab-pane {
+  background-color: #ff6347;
+  height: 100%;
+}
+
+.img-list-restau {
+  height: 100%;
+  width: 100%;
+}
+/***/
+
+.tabs {
+  margin-top: 0;
+}
+.rt-tab {
+  width: 100%;
+}
+#tab-button {
+  display: table;
+  table-layout: fixed;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+#tab-button li {
+  display: table-cell;
+  width: 20%;
+}
+#tab-button li a {
+  display: block;
+  padding: 0.5em;
+  background: #eee;
+  border: 1px solid #ddd;
+  text-align: center;
+  color: #000;
+  text-decoration: none;
+}
+#tab-button li:not(:first-child) a {
+  border-left: none;
+}
+#tab-button li a:hover,
+#tab-button .is-active a {
+  border-bottom-color: transparent;
+  background: #fff;
+}
+.tab-contents {
+  padding: 0.5em 2em 1em;
+  border: 1px solid #ddd;
+  max-width: 100%;
+}
+
+.w95 {
+  max-width: 95%;
+}
+.tab-button-outer {
+  display: none;
+}
+.tab-contents {
+  margin-top: 20px;
+}
+
+.avatar-medium {
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: 50%;
+}
+
+.avatar-medium-no-radius {
+  max-width: 128px;
+  max-height: 128px;
+}
+
+.avatar-mini {
+  max-width: 24px;
+  max-height: 24px;
+  border-radius: 50%;
+}
+.accountInfo {
+  flex: 3;
+}
+.account-restau-info {
+  flex: 3;
+}
+hr.style1 {
+  border-top: 1px solid #8c8b8b !important;
+}
+.card-br {
+  max-height: 203px;
+}
+.hourbox {
+  width: 70px;
+  height: 40px;
+}
+.active,
+.btn:hover {
+  background-color: #666;
+  color: white;
+}
+.dpn {
+  display: none;
+}
+
+.dpb {
+  display: block;
+}
+.activeP {
+  background-color: darkcyan;
+}
+.activeH {
+  background-color: darkcyan;
+}
+.btn-recapBooking {
+  margin-left: 29%;
+  width: 40%;
+}
+.d-center {
+  margin: 0 auto;
+}
+
+/* Images */
+.imgListeRst {
+  width: 100%;
+  height: 100%;
+}
+.imgBside {
+  max-width: 100%;
+  max-height: 300px;
+}
+.slidebar {
+  padding-right: 0 !important;
+}
+.listbooking {
+  max-width: 100%;
+}
+/* wrapper list restaurant */
+.wrapperList {
+  width: 100%;
+  max-height: 205px;
+}
+.wrapper-L-Rt {
+  max-height: 205px;
+}
+#L-Rt-img {
+  max-width: 30%;
+}
+.L-Rt-detail {
+  width: 70%;
+  margin-left: 2%;
+}
+/* acount temple */
+.besideCard {
+  flex: 1;
+  max-width: 20%;
+  margin-top: 0.6%;
+}
+
+.wrapper-L-Bkg {
+  flex: 3;
+}
+.accontHeading {
+  height: 300px;
+  max-height: 540px;
+}
+
+.accontHeading img {
+  width: 80%;
+  max-width: 200px;
+}
+
+/* sur petit ecran
+.accontHeading img{
+  width: 80%;
+  height: 30%;
+  max-width: 200px;
+}
+ */
+
+/*Register*/
+.registerForm {
+  width: 45%;
+  margin: 0 auto;
+}
+.btnRegister {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 30px;
+}
+
+/* Start section Fotrer */
+#footer {
+  bottom: 0;
+}
+
+.footer-wrap {
+  background: url(http://hassandesigns.top/html/classified/images/footer-bg.jpg)
+    no-repeat top;
+  padding-top: 30px;
+  background-size: cover;
+}
+
+.footer-wrap h3 {
+  color: #fff;
+  font-size: 18px;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-bottom: 30px;
+}
+
+.footer-wrap p {
+  font-size: 14px;
+  line-height: 24px;
+  color: #b3b3b3;
+  margin-top: 15px;
+}
+
+.footer-wrap p a {
+  color: #fff;
+  text-decoration: underline;
+  font-style: italic;
+}
+
+.footer-wrap p a:hover {
+  text-decoration: none;
+  color: #ff7800;
+}
+
+.footer-links li a {
+  font-size: 14px;
+  line-height: 26px;
+  color: #b3b3b3;
+  text-decoration: none;
+}
+
+.footer-links li:before {
+  content: "\f105";
+  font-family: "FontAwesome";
+  padding-right: 10px;
+  color: #b3b3b3;
+}
+
+.footer-category li a {
+  font-size: 14px;
+  line-height: 26px;
+  color: #b3b3b3;
+  text-decoration: none;
+}
+
+.footer-category li:before {
+  content: "\f105";
+  font-family: "FontAwesome";
+  padding-right: 10px;
+  color: #b3b3b3;
+}
+
+.address {
+  color: #b3b3b3;
+  font-size: 14px;
+  position: relative;
+  padding-left: 30px;
+  line-height: 30px;
+}
+
+.address:before {
+  content: "\f277";
+  font-family: "FontAwesome";
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.info a {
+  color: #b3b3b3;
+  font-size: 14px;
+  line-height: 30px;
+  font-weight: normal;
+}
+
+.fa-phone:before {
+  content: "\f095";
+}
+
+.info a {
+  color: #b3b3b3;
+  font-size: 14px;
+  line-height: 30px;
+  font-weight: normal;
+}
+
+.fa-fax:before {
+  content: "\f1ac";
+}
+
+.copyright {
+  border-top: 1px solid #5f5f5f;
+  font-size: 14px;
+  color: #b3b3b3;
+  margin-top: 25px;
+  padding-top: 10px;
+  text-align: center;
+  padding-bottom: 10px;
+}
+
+/* End section Fotrer */
+
+.gmd-1 {
+  -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12),
+    0 1px 2px rgba(0, 0, 0, 0.24);
+  -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  -ms-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  -o-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  -webkit-transition: all 0.25s ease-in-out;
+  -moz-transition: all 0.25s ease-in-out;
+  -ms-transition: all 0.25s ease-in-out;
+  -o-transition: all 0.25s ease-in-out;
+  transition: all 0.25s ease-in-out;
+}
+
+.gmd-1:hover {
+  -webkit-box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19),
+    0 6px 6px rgba(0, 0, 0, 0.23);
+  -moz-box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19),
+    0 6px 6px rgba(0, 0, 0, 0.23);
+  -ms-box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+  -o-box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+}
+
+@media screen and (min-width: 768px) {
+  .tab-button-outer {
+    position: relative;
+    z-index: 2;
+    display: block;
+  }
+  .tab-select-outer {
+    display: none;
+  }
+  .tab-contents {
+    position: relative;
+    top: -1px;
+    margin-top: 0;
+  }
+}
+
+@media screen and (min-width: 576px) {
+  .container {
+    max-width: 100%;
+  }
+}
+@media screen and (min-width: 768px) {
+  .container {
+    max-width: 80%;
+  }
+}
+
+@media screen and (min-width: 922px) {
+  .container {
+    max-width: 70%;
+  }
+}
+@media screen and (min-width: 1200px) {
+  .container {
+    max-width: 70%;
+  }
+}

@@ -1,0 +1,109 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nos magnifiques annonces{% endblock %}
+{% block body %}
+    <div class="container-fluid">
+        <div class="container">
+            <div class="row">
+                <dic class="col">
+                    <div class="card bg-primary text-white mb-3 text-center">
+                        <div class="car-body">
+                            <div class="row py-3">
+                                <div class="col-4">
+                                    <i class="fas fa-utensils fa-3x"></i>
+                                </div>
+                                <div class="col-8">
+                                    <h1>{{statdata.restaurantscount}}</h1>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-title text-center">ghdvyvsvvsdh</div>
+                </dic>
+                <dic class="col">
+                    <div class="card bg-dark text-white mb-3 text-center">
+                        <div class="car-body">
+                            <div class="row py-3">
+                                <div class="col-4">
+                                    <i class="fas fa-folder fa-3x"></i>
+                                </div>
+                                <div class="col-8">
+                                    <h1>{{statdata.bookingscount}}</h1>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </dic>
+                <div class="col">
+                    <div class="card bg-success text-white mb-3 text-center">
+                        <div class="car-body">
+                            <div class="row py-3">
+                                <div class="col-4">
+                                    <i class="fas fa-comments fa-3x"></i>
+                                </div>
+                                <div class="col-8">
+                                    <h1>{{statdata.commentscount}}</h1>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="card bg-warning text-white mb-3 text-center">
+                        <div class="car-body">
+                            <div class="row py-3">
+                                <div class="col-4">
+                                    <i class="fas fa-star fa-3x"></i>
+                                </div>
+                                <div class="col-8">
+                                    <h1>{{statdata.rating|number_format()}}</h1>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-12">
+                    <div class="alert alert-success">
+                        <h2>
+                            <i class="fas fa-arrow-up"></i>
+                            Les reservations encours</h2>
+                        <table class="table-hover">
+                            <thead>
+                                <tr>
+                                    <th class="px-3">Client</th>
+                                    <th class="px-3">Téléphone</th>
+                                    <th class="px-3">Email</th>
+                                    <th class="px-3">Date</th>
+                                    <th class="px-3">Heure</th>
+                                    <th class="px-3">Nombre</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for item in statdata.bookings %}
+                                    <tr>
+                                        <td class="px-3">{{item.booker.fullName}}</td>
+                                        <td class="px-3">{{item.booker.phone}}</td>
+                                        <td class="px-3">{{item.booker.email}}</td>
+                                        <td class="px-3">{{item.startDate|date('d/m/y')}}</td>
+                                        <td class="px-3">{{item.startDate|date('H:s')}}</td>
+                                        <td class="px-3">{{item.numberOfPeople}}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+                <div class="col"></div>
+            </div>
+            {#  #}
+        </div>
+    </div>
+
+{% endblock %}

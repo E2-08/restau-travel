@@ -1,11 +1,52 @@
 {% extends 'base.html.twig' %}
 {% block title %}Incription{% endblock %}
 {% block body %}
-    <div class="container">
-        <h1>Inscrivez vous sur notre site !</h1>
-        {{form_start(form)}}
-        {{form_widget(form)}}
-        <button type="submit" class="btn btn-success">Confirmer l'inscription</button>
-        {{form_end(form)}}
+    <div class="container py-3">
+        <div class="card d-flex registerForm flex-column bg-light px-3">
+            <div class="d-flex flex-column">
+                <div class="d-flex mt-5 flex-wrap">
+                    <div class="col"><hr></div>
+                    <div class="col">
+                        <h1>Inscription</h1>
+                    </div>
+                    <div class="col"><hr></div>
+                </div>
+                <div class="px-5 mb-5">
+                    <h6 class="text-center">Créez votre compte c'est gratuit</h6>
+                </div>
+            </div>
+
+            {{form_start(form)}}
+            <div class="d-flex flex-row flex-wrap">
+                <div class="col">
+                    {{form_row(form.firstName)}}
+                </div>
+                <div class="col">
+                    {{form_row(form.lastName)}}
+                </div>
+            </div>
+            <div class="col">
+                {{form_row(form.email)}}
+            </div>
+            <div class="col">
+                {{form_row(form.avatar)}}
+            </div>
+            <div class="col">
+                {{form_row(form.hash)}}
+            </div>
+            <div class="col">
+                {{form_row(form. passwordConfirme)}}
+            </div>
+            <div class="text-justify px-3 py-3">En poursuivant votre navigation, vous acceptez le dépôt de cookies tiers destinés à vous proposer des vidéos, des boutons de partage, des remontées de contenus de plateformes sociales
+            </div>
+            <div class="col">
+                <button type="submit" class="btn btn-success btnRegister">Confirmer l'inscription</button>
+            </div>
+
+            {{form_end(form)}}
+
+        </div>
+
     </div>
+</div>
 {% endblock %}

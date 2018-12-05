@@ -1,0 +1,14 @@
+{% for restau in restaurants %}
+<div class="d-flex flex-row shadow-sm gmd-1">
+        <div><img src="{{restau.coverimages}}" class="avatar-medium-no-radius" alt=" " srcset=" "></div>
+        <div class="flex-fill account-restau-info pl-3">
+            <h4>{{restau.name}}</h4><br>
+            <p>{{restau.adress}}</p>
+        </div>
+        <div class="d-flex flex-column justify-content-center text-center">
+            <a href="{{path('restaurant_edit', {'slug': restau.slug})}}" class="btn btn-info mb-1">Editer</a>
+            <a href="{{path('restaurant_delete', {'slug': restau.slug})}}" class="btn btn-danger" onclick="return confirm(`Etes vous sûr de vouloir supprimer le restaurant {{restau.name}} ?`)">Supprimer</a>
+        </div>
+    </div>
+    <div class="dropdown-divider"></div>
+{% endfor %}

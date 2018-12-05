@@ -3,47 +3,35 @@
 namespace App\Form;
 
 use App\Entity\User;
+use App\Form\AppType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 
-class RegistrationType extends AbstractType
+class RegistrationType extends AppType
 {
-     /**
-     * This function allows you to recover from a field
-     *
-     * @param string $label
-     * @param string $placeholder
-     * @return array
-     */
-    private function getConfig($label,$placeholder){
-        return[
-            'label' => $label,
-            'attr' => ['placeholder' => $placeholder]
-        ];
-
-    }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('firstName',TextType::class,$this->getConfig('Prenom','Votre prenom'))
-            ->add('lastName',TextType::class,$this->getConfig('Nom','Votre nom de famille'))
-            ->add('avatar',TextType::class,$this->getConfig('Nom','Nom'))
-            ->add('hash',PasswordType::class,$this->getConfig('Mot de passe','Choisissez votre mot de passe'))
-            ->add('slug',UrlType::class,$this->getConfig('Photo de profil','Url de votre avatar'))
-            ->add('email',EmailType::class,$this->getConfig('Email','Votre adresse email'))
-        ;
+            ->add('firstName',TextType::class,$this->getConfig(false,'Votre prenom'))
+            ->add('lastName',TextType::class,$this->getConfig(false,'Votre nom de famille'))
+            ->add('email',EmailType::class,$this->getConfig(false,'Votre adresse email'))
+            ->add('avatar',FileType::class,$this->getConfig(false,'Avator'))
+            ->add('hash',PasswordType::class,$this->getConfig(false,'Choisissez votre mot de passe'))
+            ->add('passwordConfirme', PasswordType::class, $this->getConfig(false,"Veuillez confirmer votre mot de passe")
+        );
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => User::class,
+           //'data_class' => User::class,
         ]);
     }
 }

@@ -1,83 +1,100 @@
 {% extends 'base.html.twig' %}
 {% block title %}
-    {{restaurant.name}}
+    {% if restaurant is not null %}
+        {{restaurant.name}}
+    {% endif %}
+
 {% endblock %}
+{% set comments = restaurant.comments %}
+{% set totalRating = 0 %}
+{% for data in comments %}
+    {% set totalRating = totalRating + data.rating %}
+{% endfor %}
 {% block body %}
-
-    <div class="rt-title" style="background-image:url({{restaurant.coverimages}});background-position: center;background-size:cover;background-repeat:no-repeat;height:300px;">
-        <div class="container">
-            <img src="{{restaurant.coverimages}}" id="img-profil-resatu" alt="">
-        </div>
-    </div>
-
     <div class="container">
-        <div class="row mt-3">
-            <!-- ====================================================== -->
-            <div class="col-md-8 mb-3">
-
-                <div class="row mb-3">
-                    <div class="col-md-6 rt-restau-show-title">
-                        <h2>{{restaurant.name}}</h2>
-                        <p>
-                            <samp class="icon-localisation">
-                                <i class="fas fa-map-marker-alt"></i>
-                            </samp>
-                            21 Cours Briand, 08000 Charleville-Mézières
-                        </p>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="col-md-12 rt-star" id="rt-star">
-                            <span class="fa fa-star"></span>
-                            <span class="fa fa-star"></span>
-                            <span class="fa fa-star"></span>
-                            <span class="fa fa-star"></span>
-                            <span class="fa fa-star"></span>
-                        </div>
-                        <div class="col-md-12 text-center mb-3">
-                            <span class="glyphicon glyphicon-comment"></span>(100 commentaires)
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12 text-center">
-                                <i class="fab fa-facebook-f rt-restau-show-social-icon c-fb"></i>
-                                <i class="fab fa-twitter rt-restau-show-social-icon c-tw"></i>
-                                <i class="fab fa-snapchat-square rt-restau-show-social-icon c-sn"></i>
-                                <i class="fab fa-instagram rt-restau-show-social-icon c-ins"></i>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row mb-3">
-                    <div class="col-md-6 rt-flag">
-                        <div class="famfamfam-flag-fr"></div>
-                        <div class="famfamfam-flag-uk "></div>
-                        <div class="famfamfam-flag-it"></div>
-                        <div class="famfamfam-flag-po "></div>
-                        <div class="famfamfam-flag-sp"></div>
-                        <div class="famfamfam-flag-ge "></div>
-                        <div class="famfamfam-flag-nl "></div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="rt-btn-reservation-avis">
-                                    <a href="" class="btn btn-success list-group">
-                                        <strong>Réservation</strong>
-                                    </a>
-                                    <a href="" class="btn btn-danger list-group">
-                                        <strong>Je donne mon avis</strong>
-                                    </a>
+        <div class="Detai-resto  d-flex flex-column mt-5">
+            <div class="d-flex flex-column px-3">
+                <div class="d-flex flex-row justify-content-around flex-wrap" id="dr-headaer">
+                    <div class="photo" style="background-image: url('{{restaurant.coverimages}}');"></div>
+                    <div class="coordonnee d-flex flex-column align-self-center px-3">
+                        <div>
+                            <div class="adress mt-3">
+                                <h2>{{restaurant.name}}</h2>
+                                <p>
+                                    <samp class="icon-localisation">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                    </samp>
+                                    {{restaurant.adress}}
+                                </p>
+                                <div class="rating">
+                                    {# Gestion de l'affichiage de la note moyenne #}
+                                    {% include 'partials/rating.html.twig' with {
+                                        'rating' : restaurant.getRatingsAvg()
+                                    }
+ %}
                                 </div>
                             </div>
-
+                        </div>
+                        <div>
+                            <div class="rt-flag">
+                                <div class="famfamfam-flag-fr"></div>
+                                <div class="famfamfam-flag-uk "></div>
+                                <div class="famfamfam-flag-it"></div>
+                                <div class="famfamfam-flag-po "></div>
+                                <div class="famfamfam-flag-sp"></div>
+                                <div class="famfamfam-flag-ge "></div>
+                                <div class="famfamfam-flag-nl "></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="options d-flex flex-row justify-between-between py-3 px-3">
+                                <a href="{{path('booking_create', {'slug': restaurant.slug})}}" class="btn  list-group mb-3" id="btn-reservation">
+                                    <strong>Réservation</strong>
+                                </a>
+                            </div>
                         </div>
 
                     </div>
-
                 </div>
+                {# ====================================================content #}
+                <div>
+                    <div class="d-flex flex-row justify-content-around flex-wrap">
+                        <div class="Detai-resto-content  py-4 px-3">
+                            <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+                                <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Menu</a>
+                                <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Avis</a>
+                                <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Contact</a>
+                                <a class="nav-item nav-link" id="nav-about-tab" data-toggle="tab" href="#nav-about" role="tab" aria-controls="nav-about" aria-selected="false">About</a>
+                            </div>
+                        </div>
+                        <div class="Detai-resto-pub d-flex flex-column px-3">
+                            <div class="card mb-3">
+                                <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d10307.411801656668!2d4.719744!3d49.770023!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x60388ea906ce8aee!2sSt+James+Pub!5e0!3m2!1sfr!2sfr!4v1539755826101" width="100%" height="255px;" frameborder="0" style="border:0" allowfullscreen="allowfullscreen"></iframe>
+                            </div>
+                            <div class="card">
+                                <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d10307.411801656668!2d4.719744!3d49.770023!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x60388ea906ce8aee!2sSt+James+Pub!5e0!3m2!1sfr!2sfr!4v1539755826101" width="100%" height="255px;" frameborder="0" style="border:0" allowfullscreen="allowfullscreen"></iframe>
+                            </div>
+                            <div class="card"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-                <div class="row ml-0 rt-tab">
+{# ======================================================================================================== #}
+
+<div class=" container=" container" mt-3"=" mt-3" "=" mt-3" "="mt-3" "" ">
+    <div class="row justify-content-between mt-2">
+        <div class="col-md-8">
+            <!-- content div-->
+            <div class="row flex-column ">
+                <!-- content header div-->
+
+                {# row  tab #}
+
+                <div class="col-md-12 rt-tab mt-5">
                     <!--Menu-->
                     <div class="tabs">
                         <div class="tab-button-outer">
@@ -113,175 +130,67 @@
                         </div>
 
                         <div id="tab02" class="tab-contents">
-                            <h2>Tab 2</h2>
-                            <div class="row">
-                                <div class="row">
-                                    <div class="col-6">
-                                        <div class="col-md-12">
-                                            <div class="card bg-light mb-3">
-                                                <div class="card-header text-center">
-                                                    <h1>4/5</h1>
-                                                </div>
-
-                                                <div class="cord-body ml-3"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-6">
-
-                                        <div class="col-md-12">
-                                            <div class="card bg-light mb-3">
-                                                <div class="card-header text-center">
-                                                    Ambiance Cuisine Déco Service Qualité/Prix</div>
-                                                <div class="cord-body ml-3"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
 
                             <div class="row">
-                                <div class="row">
-                                    <div class="col-6">
-                                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Illo suscipit quod itaque rem exercitationem, esse ut nam consectetur quisquam quis?
-                                    </div>
-                                    <div class="col-6">
-                                        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Distinctio aut sapiente eaque labore saepe ex architecto aspernatur tempora rem hic.
-                                    </div>
-                                </div>
                                 <div class="row mb-8" id="comment">
-<strong>Comment</strong><br><br><br><br><br><br>
-<div class="mt-5">
-    <i class="fas fa-comment-alt"></i>
-</div>
+                                    {% if comments | length > 0 %}
+                                        <h2>Commentaires de nos visiteurs :</h2>
+                                        {% for data in comments %}
+                                            <div class="bg-light rounded mb-3 py-3 px-3">
+                                                <strong>{{data.author.firstName}}</strong>
+                                                <blockquote>
+                                                    {{data.content}}
+                                                </blockquote>
+                                                <strong>Note :</strong>
+                                                <span>
+                                                    {% include 'partials/rating.html.twig' with {
+                                                        'rating' : data.rating
+                                                    }
+ %}
+                                                </span>
+                                            </div>
 
-Download SVGPerfect for when you want to use just one icon as a vector on the desktop or in your own icon workflow.
-                                    <br>
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod, magni ratione iusto soluta esse perspiciatis quidem? Fugit facere eius modi.
-                                    <br><br>
-                                </div>
-                                <div class="row">
-                                    <strong>Date</strong><br><br>
-                                    <div class="col-8"><br>Date</div>
-                                    <div class="col-4">Signaler un abus</div>
-                                </div>
+                                        {% endfor %}
+                                    {% else %}
+                                        <h2>Pas de Commentaires disponible :</h2>
+                                    {% endif %}
 
-                                <hr>
+                                </div>
                             </div>
                         </div>
                         <div id="tab03" class="tab-contents">
-                            <h2>Tab 3</h2>
-                            <div class="row">
-                                <div class="col-6">
-                                    <div class="col-md-12">
-                                        <div class="card bg-light mb-3">
-                                            <div class="card-header text-center"></div>
-                                            <img src="http://placehold.it/1000x400" alt="Image du restaurant" style="height:200px; width:100%; display:Block">
-                                            <div class="cord-body ml-3">
-                                                <h4 class="card-title">
-                                                    restaurant de ouf !!!
-                                                </h4>
-                                                <p class="card-text">
-                                                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nam dicta porro rem, ducimus hic, blanditiis nemo, dolorem aliquid dolor aspernatur Rerum, assumenda ut?
-                                                </p>
-                                                <a href="#" class="btn btn-secondary mb-3">En savoir plus</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="col-md-12">
-                                        <div class="card bg-light mb-3">
-                                            <div class="card-header text-center"></div>
-                                            <img src="http://placehold.it/1000x400" alt="Image du restaurant" style="height:200px; width:100%; display:Block">
-                                            <div class="cord-body ml-3">
-                                                <h4 class="card-title">
-                                                    restaurant de ouf !!!
-                                                </h4>
-                                                <p class="card-text">
-                                                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nam dicta porro rem, ducimus hic, blanditiis nemo, dolorem aliquid dolor aspernatur Rerum, assumenda ut?
-                                                </p>
-                                                <a href="#" class="btn btn-secondary mb-3">En savoir plus</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-6">
-                                    <div class="col-md-12">
-                                        <div class="card bg-light mb-3">
-                                            <div class="card-header text-center"></div>
-                                            <img src="http://placehold.it/1000x400" alt="Image du restaurant" style="height:200px; width:100%; display:Block">
-                                            <div class="cord-body ml-3">
-                                                <h4 class="card-title">
-                                                    restaurant de ouf !!!
-                                                </h4>
-                                                <p class="card-text">
-                                                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nam dicta porro rem, ducimus hic, blanditiis nemo, dolorem aliquid dolor aspernatur Rerum, assumenda ut?
-                                                </p>
-                                                <a href="#" class="btn btn-secondary mb-3">En savoir plus</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="col-md-12">
-                                        <div class="card bg-light mb-3">
-                                            <div class="card-header text-center"></div>
-                                            <img src="http://placehold.it/1000x400" alt="Image du restaurant" style="height:200px; width:100%; display:Block">
-                                            <div class="cord-body ml-3">
-                                                <h4 class="card-title">
-                                                    restaurant de ouf !!!
-                                                </h4>
-                                                <p class="card-text">
-                                                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nam dicta porro rem, ducimus hic, blanditiis nemo, dolorem aliquid dolor aspernatur Rerum, assumenda ut?
-                                                </p>
-                                                <a href="#" class="btn btn-secondary mb-3">En savoir plus</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-
-            </div>
-            <!-- ====================================================== -->
-
-            <div class="col">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="card bg-light mb-3">
-                            <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d10307.411801656668!2d4.719744!3d49.770023!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x60388ea906ce8aee!2sSt+James+Pub!5e0!3m2!1sfr!2sfr!4v1539755826101" width="100%" height="255px;" frameborder="0" style="border:0" allowfullscreen="allowfullscreen"></iframe>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="card bg-light mb-3">
-                            <div class="card-header text-center"></div>
-                            <img src="http://placehold.it/1000x400" alt="Image du restaurant" style="height:200px; width:100%; display:Block">
-                            <div class="cord-body ml-3">
-                                <h4 class="card-title">
-                                    restaurant de ouf !!!
-                                </h4>
-                                <p class="card-text">
-                                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nam dicta porro rem, ducimus hic, blanditiis nemo, dolorem aliquid dolor aspernatur Rerum, assumenda ut?
+                            <h2>{{restaurant.Name}}</h2>
+                            <hr>
+                            <h5>Localisation et horaires</h5>
+                            <div class="py-8 px-4">
+                                <p>Adresse :
+                                    {{restaurant.adress}}
                                 </p>
-                                <a href="#" class="btn btn-secondary mb-3">En savoir plus</a>
+                                <p>Horaires :
+                                    {{restaurant.timesolt}}
+                                </p>
+                                <p>Téléphone :
+                                    {{restaurant.phone}}
+                                </p>
                             </div>
+                            <hr>
+                            <h5>Moyens de payements acceptés</h5>
+                            <hr>
                         </div>
+
                     </div>
                 </div>
             </div>
 
-            <!-- ====================================================== -->
+        </div>
+        {# ========================================================= #}
+        {# sliderBar #}
+        <div class="col-md-4 col-xl-4">
+            <div class="W100"></div>
         </div>
 
-    {% endblock %}
+    </div>
+
+</div>
+
+{% endblock %}

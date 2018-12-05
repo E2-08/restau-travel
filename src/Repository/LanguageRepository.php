@@ -10,6 +10,7 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
  * @method Language|null find($id, $lockMode = null, $lockVersion = null)
  * @method Language|null findOneBy(array $criteria, array $orderBy = null)
  * @method Language[]    findAll()
+ * @method Language[]    findSearchLanguage()
  * @method Language[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 class LanguageRepository extends ServiceEntityRepository
@@ -47,4 +48,16 @@ class LanguageRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    public function findSearchLanguage($search){
+
+        return $this->createQueryBuilder('l')
+            ->andWhere('l.name like :val')
+            ->setParameter('val', $search.'%')
+            ->orderBy('l.id', 'ASC')
+            ->setMaxResults(10)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 }

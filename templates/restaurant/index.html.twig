@@ -1,77 +1,60 @@
 {% extends 'base.html.twig' %}
-
 {% block title %}Nos magnifiques annonces{% endblock %}
-
 {% block body %}
-    <div class="container">
-        <h1 class="my-3">voici les annonces</h1>
-        <div class="row">
-            <div class="col-8">
-                {% for restau in restaurants %}
-                    <hr>
-                    <div class="row mb-4" style="max-heigth:150px; box-sizing:border-box;">
+    <div class="container px-3 Rt-content-center">
+        {# formulaire de recherche #}
 
-                        <div class="col-md-4">
-                            <a href="{{path('restaurant_show', {'slug': restau.slug})}}">
-                                <img src="{{restau.coverimages}}" alt="Image du restaurant" style="height:150px; width:100%; display:Block">
-                            </a>
-                        </div>
-
-                        <div class="col-md-8">
-                            <div class="row">
-                                <div class="col-md-8">
-                                    <a href="{{path('restaurant_show', {'slug': restau.slug})}}">
-                                        <h4>{{restau.name}}</h4>
-                                    </a>
-                                    <p>{{restau.adress}}</p>
-                                    <div class="row">
-                                        <div class="col-md-8">
-                                            <div class="famfamfam-flag-fr"></div>
-                                            <div class="famfamfam-flag-uk"></div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-4 text-center">
-                                    <h2>4/<small>5</small>
-                                    </h2>
-                                    <span class="fa fa-star"></span>
-                                    <span class="fa fa-star"></span>
-                                    <span class="fa fa-star"></span>
-                                    <span class="fa fa-star"></span>
-                                    <span class="fa fa-star"></span>
-                                    <a href="{{path('restaurant_show', {'slug': restau.slug})}}">
-                                        <button href="{{path('restaurant_show', {'slug': restau.slug})}}" type="button" class="btn btn-outline-secondary mt-3">En savoir plus</button>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                {% endfor %}
+        <div class="form-group Rt-content-center mt-3">
+            {{form_start(form)}}
+            <div class="row ">
+                <div class="col-md-4 col-sm-12 mt-3">
+                    {{form_widget(form.language)}}
+                </div>
+                <div class="col-md-4 col-sm-12 mt-3">
+                    {{form_widget(form.city)}}
+                </div>
+                <div class="col-md-4 col-sm-12 mt-3">
+                    <button class="btn btn100 btn-outline-primary" type="submit">Recherche</button>
+                </div>
             </div>
-            <div class="col-4">
-                {% for i in 0..2 %}
-                    <div class="col-md-12">
-                        <div class="card bg-light mb-3">
-                            <div class="card-header text-center">
-                                3 chambre,<strong>49&euro;/nuit</strong>
-                                <small>Pas encore noté</small>
-                            </div>
-                            <img src="http://placehold.it/1000x400" alt="Image du restaurant" style="height:200px; width:100%; display:Block">
-                            <div class="cord-body ml-3">
-                                <h4 class="card-title">
-                                    restaurant de ouf !!!
-                                </h4>
-                                <p class="card-text">
-                                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nam dicta porro rem, ducimus hic, blanditiis nemo, dolorem aliquid dolor aspernatur Rerum, assumenda ut?
-                                </p>
-                                <a href="#" class="btn btn-secondary mb-3">En savoir plus</a>
-                            </div>
-                        </div>
-                    </div>
-                {% endfor %}
-            </div>
+            {{form_end(form)}}
         </div>
+
+        {# ============================ #}
+        <hr>
+        <div class="row Rt-content-center px-3">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-8 col-xl-8 ">
+                {% include 'partials/list.html.twig' with {
+                    'buffer' : restaurants,
+                    'bufferType' : 'restaurant'
+                }
+ %}
+                <div class="d-flex justify-content-center mb-5">
+                    <ul class="pagination">
+                        <li class="page-item {% if currentpage == 1 %} disabled {% endif %}">
+                            <a class="page-link" href="{{path('restaurant_pagination',{'page':currentpage-1})}}">&laquo;</a>
+                        </li>
+
+                        {% for i in 1..pageacount %}
+                            <li class="page-item {% if currentpage == i%}active{% endif %}">
+                                <a class="page-link" href="{{path('restaurant_pagination',{'page':i})}}">{{i}}</a>
+                            </li>
+                        {% endfor %}
+                        <li class="page-item {% if currentpage == pageacount %} disabled {% endif %}">
+                            <a class="page-link" href="{{path('restaurant_pagination',{'page':currentpage + 1})}}">&raquo;</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            {% if restaurants | length > 0 %}
+                <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
+                    <img class="imgBside" src="https://lorempixel.com/640/480/?60053%22%3E
+                        <div class=" card-body"=" card-body""="card-body" "">
+                    <h5 class="card-title">Special title treatment</h5>
+                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+
+                </div>
+            </div>
+        {% endif %}
     </div>
 {% endblock %}

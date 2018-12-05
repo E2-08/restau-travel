@@ -1,0 +1,83 @@
+{% for data in buffer %}
+    {% if bufferType == "booking"%}
+
+        <div class="card row gmd-1 flex-row mb-3">
+            <div class="col-12 col-sm-3 col-md-3 col-xl-3 px-0">
+                <img class="imgListeRst" src="{{data.restaurant.coverimages}}" alt="" srcset="">
+            </div>
+            <div class="col-12 col-sm-9 col-md-9 col-xl-9 px-2">
+                <div class="row flex-column mt-3">
+                    <div class="col-md-12">
+                        <a href="{{path('restaurant_show', {'slug': data.restaurant.slug})}}">
+                            <h4>{{data.restaurant.name}}</h4>
+                        </a>
+                        <h6>{{data.restaurant.adress}}</h6>
+                        <p>
+                            <i class="far fa-calendar"></i>
+                            {{data.startDate|date("m/d/Y")}}</p>
+
+                        <p>
+                            <i class="fas fa-clock"></i>{{data.startHour|date('H:i:s')}}</p>
+
+                        <p>
+                            <i class="fas fa-users"></i>{{data.numberOfPeople}}</p>
+                    </div>
+                    <div class="col-md-12 justify-content-around">
+                        <div class="row px-3 py-3">
+                            {% set comment = data.restaurant.getCommentAuthor(app.user) %}
+                            {% if comment is not null %}
+                                <span class="rt-star-sml">Votre note&nbsp;&nbsp;
+                                    {% include 'partials/rating.html.twig' with {
+                                        'rating' : comment.rating
+                                    }
+ %}
+                                </span>
+                            {% else %}
+                                <a href="{{path('booking_show', {'id':data.id})}}">Je donne mon avis</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    {# liste des restaurant index annonce #}
+    {% if bufferType == "restaurant" %}
+        <div class="card row wrapper-L-Rt gmd-1 mb-3 px-0">
+            <div class="col-12 col-sm-3 col-md-4 col-xl-4 px-0">
+                <img class="imgListeRst" src="{{data.coverimages}}" alt="" srcset="">
+            </div>
+            {# Detial info #}
+            <div class="col-12 col-sm-9 col-md-8 col-xl-8">
+                <div class="row">
+                    <div class="col-12 col-sm-12 col-md-8 col-xl-8 py-1">
+                        <a href="{{path('restaurant_show', {'slug': data.slug})}}">
+                            <h5>{{data.name}}
+                            </a>
+                            <h6>{{data.adress}}</h6>
+                            <h6>{{data.city}}</h6>
+                            <div class="famfamfam-flag-fr"></div>
+                            <div class="famfamfam-flag-uk"></div>
+                        </div>
+
+                        <div class="col-12 col-sm-12 col-md-4 col-xl-4 py-3">
+                            <span class="rt-star-sml">
+                                {% include 'partials/rating.html.twig' with {
+                                    'rating' : data.getRatingsAvg()
+                                }
+ %}
+                            </span>
+                            <span>
+                                <a href="{{path('restaurant_show', {'slug': data.slug})}}">
+                                    <button href="{{path('restaurant_show', {'slug': data.slug})}}" type="button" class="btn btn-outline-secondary mt-3">En savoir plus</button>
+                                </a>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        {% endif %}
+
+    {% endfor %}

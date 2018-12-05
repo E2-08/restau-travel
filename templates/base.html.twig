@@ -8,49 +8,103 @@
         </title>
 
         {% block stylesheets %}
-            <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
             <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
             <link href="/css/rtl.css" rel="stylesheet" id="rtl-css">
             <link href="/css/famfamfam-flags.css" rel="stylesheet" id="rtl4-css">
-            <link href="/css/app.css" rel="stylesheet" id="rtl4-css">
+            <link href="/css/app1.css" rel="stylesheet" id="rtl4-css">
             <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
             <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-timepicker/0.5.2/css/bootstrap-timepicker.min.css">
+            <link href="https://cdn.jsdelivr.net/npm/gijgo@1.9.10/css/gijgo.min.css" rel="stylesheet" type="text/css"/>
         {% endblock %}
+
+        {% block head %}{% endblock %}
+
     </head>
-    <body>
-        <div class="container">
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <a class="navbar-brand" href="{{path('home')}}">Restau Travel</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+    <body style="">
 
-                <div class="collapse navbar-collapse" id="navbarColor03">
-                    <ul class="navbar-nav mr-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{path('home')}}">Accueil</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{path('restaurant_index')}}">Annonces</a>
-                        </li>
-                    </ul>
+        <div style=" background-color:#2c656f; border-bottom:5px solid #2f4148;">
+            <div class="container Rt-navbar">
+                <nav class="navbar navbar-expand-lg">
+                    <a class="" style=" color:#f7f7f7;" href="{{path('home')}}">Restau Travel</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
 
-                    <ul class="navbar-nav ml-auto">
-                        <li class="nav-item active">
-                            <a class="nav-link" href="{{path('home')}}">Mon compte</a>
-                        </li>
-                    </ul>
+                    <div class="collapse navbar-collapse Rt-bg" id="navbarColor03">
+                        <ul class="navbar-nav mr-auto Rt-bg">
+                            <li class="nav-item">
+                                <a class="nav-link" style=" color:#ffffff;" href="{{path('home')}}">Accueil</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" style="color:#ffffff;" href="{{path('restaurant_index')}}">Annonces</a>
+                            </li>
+                        </ul>
 
-                </div>
-            </nav>
+                        <ul class="navbar-nav ml-auto">
+
+                            {% if app.user %}
+
+                                <li class="nav-item dropdown">
+
+                                    <a href="#" class="nav-link dropdown-toggle" id="accountDropdownLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <img src="{{app.user.avatar}}" class="avatar avatar-mini" alt="Avatar de {{ app.user.fullName}}">{{app.user.fullName}}
+                                    </a>
+                                    <div class="dropdown-menu dropdwon-menu-right" aria-labelledby="accountDropdownLink">
+
+                                        {% if app.user.roles[0] == "ROLE_RESTORATOR" %}
+                                            <a class="dropdown-item" href="{{path('account_index_restaurants',{'slug':'restau'})}}">Mes restaurants</a>
+                                            <a class="dropdown-item" href="{{path('restaurant_add_new')}}">Nouveau restaurant</a>
+                                            <div class="dropdown-divider"></div>
+                                        {% elseif app.user.roles[0] == "ROLE_USER" %}
+                                            <a class="dropdown-item" href="{{path('account_booking')}}">Mes réservations</a>
+                                            <div class="dropdown-divider"></div>
+                                        {% endif %}
+
+                                        <a class="dropdown-item" href="{{path('account_index')}}">Mon compte</a>
+
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="{{path('account_logout')}}">Déconnexion</a>
+                                    </div>
+                                </li>
+
+                            {% else %}
+                                <li class="nav-item">
+                                    <a style="color:#f7f7f7;" href="{{path('account_register')}}" class="nav-link">Inscription</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a style="color:#f7f7f7;" href="{{path('account_login')}}" class="nav-link">Connexion</a>
+                                </li>
+                            {% endif %}
+                        </ul>
+
+                    </div>
+                </nav>
+            </div>
         </div>
+        {# Message flash #}
+        {% for label, messages in app.flashes %}
+            {% for message in messages %}
+                <div class=" container alert alert-{{ label }}" id="Alert-wraper">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endfor %}
+
         {% block body %}{% endblock %}
 
+        {% block footer %}
+            {% include 'partials/footer.html.twig' %}
+        {% endblock %}
+
         {% block javascripts %}
-            <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-            <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-            <script src="http://code.jquery.com/jquery.js"></script>
-            <script src="/js/app.js"></script>
+            <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+            <script src="/js/app1.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-timepicker/0.5.2/js/bootstrap-timepicker.min.js"></script>
+
         {% endblock %}
     </body>
 </html>
