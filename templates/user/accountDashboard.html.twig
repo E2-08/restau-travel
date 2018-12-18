@@ -1,4 +1,4 @@
-<div class="d-flex accontHeading flex-wrap mt-3 py-5 px-3 bg-light">
+<div class="d-flex accontHeading flex-wrap mt-3 py-5 px-3 bg-light mb-foo">
     <img src="{{app.user.avatar}}" class="avatar avatar-medium" alt="Avatar de {{ app.user.fullName}}">
     <div class="px-4">
         <span class="py-0">
@@ -11,13 +11,14 @@
             <p>Email :
                 {{user.email}}</p>
             <p>Phone :
-                {{user.phone}}</p>
+                {{user.phone}}</p>ezTZT
             <div class="d-flex flex-wrap">
+
                 <a href="">
-                    <button href="" type="button" class="btn btn-outline-secondary">Modifier mes information</button>
+                    <button href="{{path('account_profile')}}" type="button" class="btn btn-outline-secondary">Modifier mes information</button>
                 </a>
                 <a href="">
-                    <button href="" type="button" class="btn btn-outline-secondary">Mot de passe</button>
+                    <button href="account_profile" type="button" class="btn btn-outline-secondary">Mot de passe</button>
                 </a>
                 <a href="">
                     <button href="" type="button" class="btn btn-outline-secondary">Supprimer mon compte</button>

@@ -18,11 +18,24 @@
   background-repeat: no-repeat;
 }
 
-
-.famfamfam-flag-fr {background-image: url("/img/flags/fr.jpg");}
-.famfamfam-flag-uk {background-image: url("/img/flags/uk.jpg");}
-.famfamfam-flag-it{background-image: url("/img/flags/it.jpg");}
-.famfamfam-flag-po{background-image: url("/img/flags/po.jpg");}
-.famfamfam-flag-sp{background-image: url("/img/flags/sp.jpg");}
-.famfamfam-flag-ge{background-image: url("/img/flags/ge.jpg");}
-.famfamfam-flag-nl{background-image: url("/img/flags/nl.jpg");}
+.famfamfam-flag-fr {
+  background-image: url("/img/flags/fr.jpg");
+}
+.famfamfam-flag-uk {
+  background-image: url("/img/flags/uk.jpg");
+}
+.famfamfam-flag-it {
+  background-image: url("/img/flags/it.jpg");
+}
+.famfamfam-flag-po {
+  background-image: url("/img/flags/po.jpg");
+}
+.famfamfam-flag-sp {
+  background-image: url("/img/flags/sp.jpg");
+}
+.famfamfam-flag-ge {
+  background-image: url("/img/flags/ge.jpg");
+}
+.famfamfam-flag-nl {
+  background-image: url("/img/flags/nl.jpg");
+}

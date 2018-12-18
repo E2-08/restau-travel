@@ -1,22 +1,36 @@
-{% extends 'base.html.twig' %}
-{% block title %}Modification du compte itulisateur{% endblock %}
-{% block body %}
-    <div class="container">
-        <div class="jumbotron"></div>
-        {{form_start(form)}}
-        <div class="form-group">
-            <div class="col">
-                {{form_row(form.firstName)}}
-                {{form_row(form.firstName)}}
-            </div>
+<div class="info-profile">
+    <form action="" method="post">
+        <form>
+            <fieldset>
+                <legend>Mes infromations</legend>
 
-            <div class="col">
-                {{form_row(form.firstName)}}
-                {{form_row(form.firstName)}}
-            </div>
-        </div>
-        {{form_widget(form)}}
-        <button type="submit" class="btn btn-primary">Enregistrer les modifications</button>
-        {{form_end(form)}}
-    </div>
-{% endblock %}
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Votre Nom</label>
+                    <input type="text" name="lastname" class="form-control" id="_lastname">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Votre prenom</label>
+                    <input type="text" name="firstname" class="form-control" id="_firstname">
+
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Votre adress email</label>
+                    <input type="email" name="firstname" class="form-control" id="_firstname">
+
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Téléphone</label>
+                    <input type="text" name="phone" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+
+                </div>
+
+                <div class="form-group">
+                    <label for="exampleInputFile">Votre Avatar</label>
+                    <input type="file" class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp">
+                </div>
+
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </fieldset>
+        </form>
+    </form>
+</div>

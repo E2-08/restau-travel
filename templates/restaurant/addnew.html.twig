@@ -1,12 +1,77 @@
-{% extends 'base.html.twig' %}
+{% extends 'admin/base.html.twig' %}
 {% block title %}{% endblock %}
 {% block body %}
-    <div class="container">
-        <h1>Attirez des nouveaux clients dans votre restaurant</h1>
-        <h5>Dites-nous en plus sur votre établissement.</h5>
-        {{form_start(form)}}
-        {{form_widget(form)}}
-        <input type="submit" value="save" class="btn btn-primary">
-        {{form_end(form)}}
+    <div class="Wrapper mt-5 mbfooter">
+        <div class="container">
+            <div class="d-flex flex-row flex-wrap">
+                <div class="col-md-6 ">
+                    <div class="card">
+                        <div class="d-flex header-form">
+                            <h3>Restau Travel</h3>
+                        </div>
+                        <div class="px-3">
+                            <form action="{{path('restaurant_add_new')}}" method="post" class="px-3 mt-3">
+
+                                <div class="d-flex flex-row">
+                                    <div class="flex3 siret">
+                                        <input type="text" name="siret" placeholder="N° siret de votre établissement">
+                                    </div>
+                                    <div class="flex1">
+                                        <input type="submit" value="Continuez">
+                                    </div>
+                                </div>
+                            </form>
+
+                            {{form_start(form)}}
+
+                            <div class=" mb-3 mt-3 ">
+
+                                {{form_row(form.name,{'value':restaurant.name})}}
+                            </div>
+                            <div class=" d-flex flex-row justify-content-between">
+                                <div class="flex1">
+                                    {{form_row(form.phone,{'value':restaurant.phone})}}</div>
+                                <div class="flex1">
+                                    {{form_row(form.email,{'value':restaurant.email})}}</div>
+                            </div>
+                            <div class="d-flex flex-row justify-content-between">
+                                <div class="flex1">{{form_row(form.timesolt,{'value':restaurant.timesolt})}}</div>
+                                <div class="flex1">
+                                    {{form_row(form.bookinglimit,{'value':restaurant.bookinglimit})}}</div>
+                            </div>
+                            {{form_row(form.coverimages,{'value':restaurant.coverimages})}}
+
+                            {{form_row(form.adress,{'value':restaurant.adress})}}
+                            <div class="d-flex flex-row justify-content-between">
+                                <div class="flex1">{{form_row(form.city,{'value':restaurant.city})}}</div>
+                                <div class="flex1">{{form_row(form.country,{'value':restaurant.country})}}</div>
+                            </div>
+
+                            Selectionez les diférentes langues dans les quelles le service peux se faire dans votre restaurant
+                            <div class="d-flex flex-row justify-content-center mb-3">
+                                {% for language in languages %}
+                                    <div class="d-flex flex-row align-items-center justify-content-between ">
+                                        <input type="checkbox" name="{{language.name}}" value="{{language.name}}">
+                                        <div class=" mr-2 famfamfam-flag-{{language.flag}} ml-2"></div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" value="Continuez" class="btn btn-primary w100">
+                            </div>
+                            {{form_end(form)}}
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 d-flex flex-column align-items-center">
+                    <h1>Attirez des nouveaux clients dans votre restaurant</h1>
+                    <h5>Dites-nous en plus sur votre établissement.</h5>
+                    <img src="/img/4cb7a8e2.png" alt="" srcset="">
+                </div>
+            </div>
+
+        </div>
     </div>
+
 {% endblock %}

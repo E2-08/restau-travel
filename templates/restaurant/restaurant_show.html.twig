@@ -1,196 +1,156 @@
 {% extends 'base.html.twig' %}
+
+{% if restaurant is not null %}
+    {% set comments = restaurant.comments %}
+    {% set totalRating = 0 %}
+    {% for data in comments %}
+        {% set totalRating = totalRating + data.rating %}
+    {% endfor %}
+    {% set title = restaurant.name %}
+{% endif %}
+
 {% block title %}
-    {% if restaurant is not null %}
-        {{restaurant.name}}
-    {% endif %}
-
+    {{title}}
 {% endblock %}
-{% set comments = restaurant.comments %}
-{% set totalRating = 0 %}
-{% for data in comments %}
-    {% set totalRating = totalRating + data.rating %}
-{% endfor %}
+
 {% block body %}
-    <div class="container">
-        <div class="Detai-resto  d-flex flex-column mt-5">
-            <div class="d-flex flex-column px-3">
-                <div class="d-flex flex-row justify-content-around flex-wrap" id="dr-headaer">
-                    <div class="photo" style="background-image: url('{{restaurant.coverimages}}');"></div>
-                    <div class="coordonnee d-flex flex-column align-self-center px-3">
-                        <div>
-                            <div class="adress mt-3">
-                                <h2>{{restaurant.name}}</h2>
-                                <p>
-                                    <samp class="icon-localisation">
-                                        <i class="fas fa-map-marker-alt"></i>
-                                    </samp>
-                                    {{restaurant.adress}}
-                                </p>
-                                <div class="rating">
-                                    {# Gestion de l'affichiage de la note moyenne #}
-                                    {% include 'partials/rating.html.twig' with {
-                                        'rating' : restaurant.getRatingsAvg()
-                                    }
- %}
-                                </div>
-                            </div>
-                        </div>
-                        <div>
-                            <div class="rt-flag">
-                                <div class="famfamfam-flag-fr"></div>
-                                <div class="famfamfam-flag-uk "></div>
-                                <div class="famfamfam-flag-it"></div>
-                                <div class="famfamfam-flag-po "></div>
-                                <div class="famfamfam-flag-sp"></div>
-                                <div class="famfamfam-flag-ge "></div>
-                                <div class="famfamfam-flag-nl "></div>
-                            </div>
-                        </div>
-                        <div>
-                            <div class="options d-flex flex-row justify-between-between py-3 px-3">
-                                <a href="{{path('booking_create', {'slug': restaurant.slug})}}" class="btn  list-group mb-3" id="btn-reservation">
-                                    <strong>Réservation</strong>
-                                </a>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-                {# ====================================================content #}
-                <div>
+    <div class="Wrapper">
+        <div class="Detai-resto d-flex flex-column mb-foo">
+            <div id="dr-headaer">
+                <div class="container d-flex flex-column">
                     <div class="d-flex flex-row justify-content-around flex-wrap">
-                        <div class="Detai-resto-content  py-4 px-3">
-                            <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
-                                <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Menu</a>
-                                <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Avis</a>
-                                <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Contact</a>
-                                <a class="nav-item nav-link" id="nav-about-tab" data-toggle="tab" href="#nav-about" role="tab" aria-controls="nav-about" aria-selected="false">About</a>
+                        <div class="photo" style="background-image: url('{{asset('/uploads/coverimages/' ~ restaurant.coverimages)}}');"></div>
+                        <div class="coordonnee d-flex flex-column align-self-center align-items-center px-3">
+
+                            <h2>{{restaurant.name}}</h2>
+
+                            <h4>
+                                <samp class="icon-localisation">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                </samp>
+                                {{restaurant.adress}}
+                            </h4>
+                            <div class="rating mt-3">
+                                {# Gestion de l'affichiage de la note moyenne #}
+                                {% include 'partials/rating.html.twig' with {
+                                    'rating' : restaurant.getRatingsAvg()
+                                }
+ %}
                             </div>
-                        </div>
-                        <div class="Detai-resto-pub d-flex flex-column px-3">
-                            <div class="card mb-3">
-                                <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d10307.411801656668!2d4.719744!3d49.770023!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x60388ea906ce8aee!2sSt+James+Pub!5e0!3m2!1sfr!2sfr!4v1539755826101" width="100%" height="255px;" frameborder="0" style="border:0" allowfullscreen="allowfullscreen"></iframe>
+                            <div class=" w100 mt-3">
+                                {% include 'partials/flag.html.twig' with {
+                                    'languages' : restaurant.getlanguages()
+                                }
+ %}
                             </div>
-                            <div class="card">
-                                <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d10307.411801656668!2d4.719744!3d49.770023!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x60388ea906ce8aee!2sSt+James+Pub!5e0!3m2!1sfr!2sfr!4v1539755826101" width="100%" height="255px;" frameborder="0" style="border:0" allowfullscreen="allowfullscreen"></iframe>
-                            </div>
-                            <div class="card"></div>
+
+                            <a class="btn mt-3 w100  mb-3 Rt-link" id="btn-reservation" href="{{path('booking_create', {'slug': restaurant.slug})}}">
+                                <strong>Réservation</strong>
+
+                            </a>
+
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-</div>
-
-{# ======================================================================================================== #}
-
-<div class=" container=" container" mt-3"=" mt-3" "=" mt-3" "="mt-3" "" ">
-    <div class="row justify-content-between mt-2">
-        <div class="col-md-8">
-            <!-- content div-->
-            <div class="row flex-column ">
-                <!-- content header div-->
-
-                {# row  tab #}
-
-                <div class="col-md-12 rt-tab mt-5">
-                    <!--Menu-->
-                    <div class="tabs">
-                        <div class="tab-button-outer">
-                            <ul id="tab-button">
-                                <li>
-                                    <a href="#tab01">Menu</a>
-                                </li>
-                                <li>
-                                    <a href="#tab02">Avis</a>
-                                </li>
-                                <li>
-                                    <a href="#tab03">Info</a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="tab-select-outer">
-                            <select id="tab-select">
-                                <option value="#tab01">Tab 1</option>
-                                <option value="#tab02">Tab 2</option>
-                                <option value="#tab03">Tab 3</option>
-                                <option value="#tab04">Tab 4</option>
-                                <option value="#tab05">Tab 5</option>
-                            </select>
-                        </div>
-
-                        <div id="tab01" class="tab-contents">
-
-                            <div class="col">
-                                <div class="row">Entrée</div><hr>
-                                <div class="row">Plat</div><hr>
-                                <div class="row">Désert</div>
+            {# ================================== content  #}
+            <div class="tabcpntent-wrapper mbfooter">
+                <div class="container">
+                    <div class="d-flex flex-row justify-content-around flex-wrap">
+                        <div id="nav-wrap">
+                            {# ======================================================détail #}
+                            <div class=" Detai-resto-content  py-4">
+                                <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+                                    <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-menu" role="tab" aria-controls="nav-menu" aria-selected="true">Menu</a>
+                                    <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-avis" role="tab" aria-controls="nav-avis" aria-selected="false">Avis</a>
+                                    {# <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-info" role="tab" aria-controls="nav-info" aria-selected="false">Info</a> #}
+                                </div>
                             </div>
-                        </div>
+                            <div id="nav-menu" class="tabcontent active show">
+                                <div class="text-center py-4">
+                                    <h5>Carte du restaurant
+                                        {{title}}</h5>
+                                </div>
+                                <div class="d-flex flex-column">
+                                    <div class="px-3">
+                                        <h5>Entrée</h5>
+                                    </div>
+                                    {% for item in restaurant.getmenu() %}
+                                        <div class="d-flex flex-row px-3">
+                                            {% if item.category == 'Entrée' %}
+                                                <div class="col-8 py-2">{{item.titre}}</div>
+                                                <div class="col-4 text-center">{{item.prise}}</div>
+                                            {% endif %}
+                                        </div>
+                                    {% endfor %}
+                                    <hr/>
+                                    <div class="px-3">
+                                        <h5>Plats</h5>
+                                    </div>
+                                    {% for item in restaurant.getmenu() %}
+                                        <div class="d-flex flex-row px-3">
+                                            {% if item.category == 'Plat' %}
+                                                <div class="col-8 py-2">{{item.titre}}</div>
+                                                <div class="col-4 text-center">{{item.prise}}</div>
+                                            {% endif %}
+                                        </div>
+                                    {% endfor %}
+                                    <hr/>
+                                    <div class="px-3">
+                                        <h5>Desserts</h5>
+                                    </div>
+                                    {% for item in restaurant.getmenu() %}
+                                        <div class="d-flex flex-row px-3">
+                                            {% if item.category == 'Dessert' %}
+                                                <div class="col-8 py-2">{{item.titre}}</div>
+                                                <div class="col-4 text-center">{{item.prise}}</div>
+                                            {% endif %}
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
 
-                        <div id="tab02" class="tab-contents">
-
-                            <div class="row">
-                                <div class="row mb-8" id="comment">
-                                    {% if comments | length > 0 %}
-                                        <h2>Commentaires de nos visiteurs :</h2>
-                                        {% for data in comments %}
-                                            <div class="bg-light rounded mb-3 py-3 px-3">
-                                                <strong>{{data.author.firstName}}</strong>
-                                                <blockquote>
-                                                    {{data.content}}
-                                                </blockquote>
-                                                <strong>Note :</strong>
-                                                <span>
-                                                    {% include 'partials/rating.html.twig' with {
-                                                        'rating' : data.rating
-                                                    }
+                            <div id="nav-avis" class="tabcontent">
+                                {% if restaurant.getComments() | length > 0 %}
+                                    {% for comment in restaurant.getComments() %}
+                                        <div class="d-flex ml-2 flex-row flex-wrap ">
+                                            <div class="bg bg-light px-3">
+                                                <div class="row px-3 pt-3">
+                                                    <strong>{{comment.author.fullName}}</strong>
+                                                    <span class="rt-star-sml ml-3 mr-3">&nbsp;&nbsp;
+                                                        {% include 'partials/rating.html.twig' with {
+                                                            'rating' : comment.rating
+                                                        }
  %}
-                                                </span>
+                                                    </span>
+                                                </div>
+                                                <div class="row px-3 pb-3 ">
+                                                    {{comment.content}}
+                                                    <i class="far fa-calendar">
+                                                        <span class="ml-2 mr-3">
+                                                            Avis déposé le
+                                                            {{comment.createdAt|date('d/m/y') }}</span></i>
+                                                </div>
                                             </div>
+                                            <hr/>
+                                        </div>
+                                    {% endfor %}
+                                {% endif %}
+                            </div>
 
-                                        {% endfor %}
-                                    {% else %}
-                                        <h2>Pas de Commentaires disponible :</h2>
-                                    {% endif %}
-
+                        </div>
+                        {# -------------------------------------slide bad #}
+                        <div id="slide-bar-wrap">
+                            <div class="Detai-resto-pub d-flex flex-column px-3">
+                                <div class="card mb-3" id="gmap">
+                                    <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d10307.411801656668!2d4.719744!3d49.770023!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x60388ea906ce8aee!2sSt+James+Pub!5e0!3m2!1sfr!2sfr!4v1539755826101" width="100%" height="255px;" frameborder="0" style="border:0" allowfullscreen="allowfullscreen"></iframe>
                                 </div>
                             </div>
                         </div>
-                        <div id="tab03" class="tab-contents">
-                            <h2>{{restaurant.Name}}</h2>
-                            <hr>
-                            <h5>Localisation et horaires</h5>
-                            <div class="py-8 px-4">
-                                <p>Adresse :
-                                    {{restaurant.adress}}
-                                </p>
-                                <p>Horaires :
-                                    {{restaurant.timesolt}}
-                                </p>
-                                <p>Téléphone :
-                                    {{restaurant.phone}}
-                                </p>
-                            </div>
-                            <hr>
-                            <h5>Moyens de payements acceptés</h5>
-                            <hr>
-                        </div>
-
                     </div>
                 </div>
             </div>
 
         </div>
-        {# ========================================================= #}
-        {# sliderBar #}
-        <div class="col-md-4 col-xl-4">
-            <div class="W100"></div>
-        </div>
-
-    </div>
-
-</div>
-
-{% endblock %}
+    {% endblock %}
+    {% block javascripts %}{% endblock %}

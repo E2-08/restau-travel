@@ -1,0 +1,43 @@
+{% extends '/admin/base.html.twig' %}
+
+{% block title %}Nos magnifiques annonces{% endblock %}
+{% block body %}
+    <div class="Wrapper mbfooter">
+        <div class="container">
+            <h2 >Gestions des restaurants</h2>
+            <table class="table table-striped  mt-3 table-list table-responsive-sm able-responsive-md">
+                <thead>
+                    <tr >
+                        <th >Id</th>
+                        <th >Nom</th>
+                        <th >Auteur</th>
+                        <th >Réservation</th>
+                        <th >Note</th>
+                        <th >Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for restaurant in restaurants %}
+                        <tr>
+                            <td class="text-center">{{restaurant.id}}</td>
+                            <td class="text-center">{{restaurant.name}}</td>
+                            <td class="text-center">{{restaurant.author.fullName}}</td>
+                            <td class="text-center">{{restaurant.bookings| length}}</td>
+                            <td class="text-center">{{restaurant.getRatingsAvg}}</td>
+                            <td class="text-center">
+                                <a href="#" class="btn btn-primary">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <a href="#" class="delete_btn  btn-danger">
+                                    <i class="fas fa-trash"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+{% endblock %}

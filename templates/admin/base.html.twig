@@ -6,27 +6,29 @@
         <title>
             Resatu-Travel -{% block title %}Welcome!{% endblock %}
         </title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+        <link href="/css/rtl.css" rel="stylesheet" id="rtl-css">
+        <link href="/css/famfamfam-flags.css" rel="stylesheet" id="rtl4-css">
+        <link href="/css/app1.css" rel="stylesheet" id="rtl4-css">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 
-        {% block stylesheets %}
-            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-            <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-            <link href="/css/rtl.css" rel="stylesheet" id="rtl-css">
-            <link href="/css/famfamfam-flags.css" rel="stylesheet" id="rtl4-css">
-            <link href="/css/app1.css" rel="stylesheet" id="rtl4-css">
-            <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
-            <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-timepicker/0.5.2/css/bootstrap-timepicker.min.css">
-            <link href="https://cdn.jsdelivr.net/npm/gijgo@1.9.10/css/gijgo.min.css" rel="stylesheet" type="text/css"/>
-        {% endblock %}
+        {% block stylesheets %}{% endblock %}
 
         {% block head %}{% endblock %}
 
     </head>
     <body>
-
-        <div style=" background-color:#2d4160; border-bottom: 5px solid #28cc75;">
-            <div class="container"></div>
-        </div>
+        {% include 'admin/_header.html.twig' %}
+        {# Message flash #}
+        {% for label, messages in app.flashes %}
+            {% for message in messages %}
+                <div class=" container alert alert-{{label}}" id="Alert-wraper">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endfor %}
         {% block body %}{% endblock %}
 
         {% block footer %}

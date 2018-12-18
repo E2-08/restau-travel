@@ -1,0 +1,75 @@
+{# my booking=================================================== #}
+
+{% if bookings | length > 0 %}
+    <div class="px-4">
+        <h5>Mes réservations</h5>
+    </div>
+
+    {% for booking in bookings %}
+
+        <div class=" d-flex ml-2 flex-row flex-wrap ">
+
+            <div class="col-md-4">
+                <img src="{{booking.restaurant.coverimages}}" alt="bootsnipp" class="img-user-booking img-rounded img-responsive"/>
+            </div>
+            <div class="col-md-8">
+                <div class="well well-sm">
+                    <div class="row">
+                        <div class="col-xs-12 col-md-12 section-box">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <a href="{{path('restaurant_show', {'slug': booking.restaurant.slug})}}">
+                                        <h4>{{booking.restaurant.name}}</h4>
+
+                                    </a>
+                                </div>
+                                <div class="col-md-6">
+                                    <span class="rt-star-sml">&nbsp;&nbsp;
+                                        {% include 'partials/rating.html.twig' with {
+                                            'rating' : booking.restaurant.getRatingsAvg()
+                                        }
+ %}
+                                    </span>
+                                </div>
+
+                            </div>
+
+                            <h6>{{booking.restaurant.adress}}</h6>
+
+                            <i class="far fa-calendar">
+                                <span class="mr-3">
+                                    date de réseravtion
+                                    {# {{booking.startDate|date("m/d/Y")}}</span></i> #}
+
+                                    <i class="far fa-clock">
+                                        <span>heure
+                                            {{booking.startHour}}</span></i>
+
+                                    <hr/>
+                                    <div class="row rating-desc">
+                                        <div class="col-md-12">
+                                            {% set comment = booking.restaurant.getCommentAuthor(app.user) %}
+                                            {% if comment is not null %}
+                                                <span class="rt-star-sml">Votre note&nbsp;&nbsp;
+                                                    {% include 'partials/rating.html.twig' with {
+                                                        'rating' : comment.rating
+                                                    }
+ %}
+                                                </span>
+                                            {% else %}
+                                                <a href="{{path('booking_show', {'id':booking.id})}}">Je donne mon avis</a>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="bg bg-ligth">
+                Vous n’avez pas encore de réservation. On ne peut pas vous laisser comme ça : pour vous inspirer, voici la liste des établissements les plus réservés dans votre ville.
+            </div>
+        {% endif %}
+        {# my booking end=================================================== #}

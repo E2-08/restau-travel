@@ -15,10 +15,8 @@
                         <p>
                             <i class="far fa-calendar"></i>
                             {{data.startDate|date("m/d/Y")}}</p>
-
                         <p>
                             <i class="fas fa-clock"></i>{{data.startHour|date('H:i:s')}}</p>
-
                         <p>
                             <i class="fas fa-users"></i>{{data.numberOfPeople}}</p>
                     </div>
@@ -44,40 +42,39 @@
 
     {# liste des restaurant index annonce #}
     {% if bufferType == "restaurant" %}
-        <div class="card row wrapper-L-Rt gmd-1 mb-3 px-0">
-            <div class="col-12 col-sm-3 col-md-4 col-xl-4 px-0">
-                <img class="imgListeRst" src="{{data.coverimages}}" alt="" srcset="">
-            </div>
-            {# Detial info #}
-            <div class="col-12 col-sm-9 col-md-8 col-xl-8">
-                <div class="row">
-                    <div class="col-12 col-sm-12 col-md-8 col-xl-8 py-1">
-                        <a href="{{path('restaurant_show', {'slug': data.slug})}}">
-                            <h5>{{data.name}}
-                            </a>
-                            <h6>{{data.adress}}</h6>
-                            <h6>{{data.city}}</h6>
-                            <div class="famfamfam-flag-fr"></div>
-                            <div class="famfamfam-flag-uk"></div>
-                        </div>
+        <div class="card gmd-1 mb-3 px-0">
 
-                        <div class="col-12 col-sm-12 col-md-4 col-xl-4 py-3">
-                            <span class="rt-star-sml">
+            <div class="row">
+                <div class="col-md-5">
+                    <img class="imgListeRst" src="{{data.coverimages}}" alt="" srcset="">
+                </div>
+                <div class="col-md-7 L-Rt-detail">
+                    <div class="row">
+                        <div class="col-md-12 px-4 py-4">
+                            <a href="{{path('restaurant_show', {'slug': data.slug})}}">
+                                <h4>{{data.name}}</h4>
+                            </a>
+
+                            <span class="rt-star-sml mt-3 mb-3">
                                 {% include 'partials/rating.html.twig' with {
                                     'rating' : data.getRatingsAvg()
                                 }
  %}
                             </span>
-                            <span>
-                                <a href="{{path('restaurant_show', {'slug': data.slug})}}">
-                                    <button href="{{path('restaurant_show', {'slug': data.slug})}}" type="button" class="btn btn-outline-secondary mt-3">En savoir plus</button>
-                                </a>
-                            </span>
+
+                            <h6>{{data.adress}}</h6>
+                            <h6>{{data.city}}</h6>
+                            {% include 'partials/flag.html.twig' with {
+                                'languages' : data.getlanguages()
+                            }
+ %}
                         </div>
+
                     </div>
+
                 </div>
             </div>
+        </div>
+    {% endif %}
 
-        {% endif %}
-
-    {% endfor %}
+{% endfor %}

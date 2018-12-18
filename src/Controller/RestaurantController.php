@@ -7,13 +7,13 @@ use GuzzleHttp\Client;
 use App\Entity\Language;
 use App\Entity\Restaurant;
 use App\Form\RestaurantType;
-use App\Form\PropertySearchType;
 use App\Entity\PropertySearch;
+use App\Form\PropertySearchType;
 use App\Repository\LanguageRepository;
 use Psr\Http\Message\ResponseInterface;
 use App\Repository\RestaurantRepository;
-use Symfony\Component\DomCrawler\Crawler;
 
+use Symfony\Component\DomCrawler\Crawler;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Psr7\Request as PsrRequest;
 use Symfony\Component\HttpFoundation\Request;
@@ -32,7 +32,8 @@ class RestaurantController extends AbstractController
    * This method displays the home page and the list of restaurants
    * It also loads the search engine.
    *  
-   * @Route("/restaurant", name="restaurant_index")
+   *
+   * @Route("/", name="restaurant_index")
    * @Route("/restaurant/search", name="restaurant_search")
    * @Route("/restaurant/{page<\d+>?1}", name="restaurant_pagination")
    *
@@ -43,7 +44,7 @@ class RestaurantController extends AbstractController
    * @param LanguageRepository $repoLanguage
    * @return response
    */
-  public function index($page = 1, Request $request, ObjectManager $manager, RestaurantRepository $repoRestaurant, LanguageRepository $repoLanguage)
+  public function index($page = 1, Request $request, ObjectManager $manager, RestaurantRepository $repoRestaurant)
   {
     $restaurants = new Restaurant();
     $search = new PropertySearch();
@@ -52,6 +53,7 @@ class RestaurantController extends AbstractController
     $offset = $page * $limit - $limit;
 
     $restaurants = $repoRestaurant->findBy([], [], $limit, $offset);
+
 
     $form = $this->createForm(PropertySearchType::class, $search);
     $form->handleRequest($request);
@@ -74,16 +76,17 @@ class RestaurantController extends AbstractController
       'restaurants' => $restaurants,
       'form' => $form->createView(),
       'pageacount' => $pageacount,
-      'currentpage' => $page
+      'currentpage' => $page,
+      'toprestaurants' => $repoRestaurant->findBestRestaurant(2)
     ]);
   }
 
   /**
-   * @Route("/restaurant/add", name="restaurant_add_new")
+   * @Route("/restaurant/eadd", name="restaurant_add_newjj")
    * 
    * @return response
    */
-  public function create(Request $request, ObjectManager $manager)
+  public function create(Request $request, ObjectManager $manager, LanguageRepository $repo)
   {
 
     // Send an asynchronous request.
@@ -96,26 +99,39 @@ class RestaurantController extends AbstractController
 
     if ($form->isSubmitted() && $form->isValid()) {
 
+      //user set role 
       $restaurant->setAuthor($this->getUser());
       $manager->persist($restaurant);
       $manager->flush();
+      //redirection vert admin 
     }
+    $languages = $repo->findAll();
 
     return $this->render('restaurant/addnew.html.twig', [
-      'form' => $form->createView()
+      'form' => $form->createView(),
+      'languages' => $languages
     ]);
   }
+
+
 
   /**
    * @Route("/restaurant/{slug}", name="restaurant_show")
    * 
    * @return response
    */
-  public function show($slug, RestaurantRepository $repo)
+  public function show($slug, RestaurantRepository $repo, LanguageRepository $langrepo)
   {
     $restaurant = new Restaurant();
+
+
     $restaurant = $repo->findOneBySlug($slug);
       // récuperer la liste des restaux prémiun
+
+
+
+
+
     return $this->render(
       'restaurant/restaurant_show.html.twig',
       array("restaurant" => $restaurant)
@@ -173,6 +189,9 @@ class RestaurantController extends AbstractController
 
     $form = $this->createForm(RestaurantType::class, $restaurant);
     $form->handleRequest($request);
+
+
+
 
     if ($form->isSubmitted() && $form->isValid()) {
 

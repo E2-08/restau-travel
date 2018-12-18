@@ -34,7 +34,7 @@ class Language
     private $slug;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Restaurant", inversedBy="languages")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Restaurant", inversedBy="languages",))
      */
     private $restaurant;
 
@@ -43,41 +43,41 @@ class Language
         $this->restaurant = new ArrayCollection();
     }
 
-    public function getId(): ?int
+    public function getId() : ? int
     {
         return $this->id;
     }
 
-    public function getName(): ?string
+    public function getName() : ? string
     {
         return $this->name;
     }
 
-    public function setName(string $name): self
+    public function setName(string $name) : self
     {
         $this->name = $name;
 
         return $this;
     }
 
-    public function getFlag(): ?string
+    public function getFlag() : ? string
     {
         return $this->flag;
     }
 
-    public function setFlag(?string $flag): self
+    public function setFlag(? string $flag) : self
     {
         $this->flag = $flag;
 
         return $this;
     }
 
-    public function getSlug(): ?string
+    public function getSlug() : ? string
     {
         return $this->slug;
     }
 
-    public function setSlug(?string $slug): self
+    public function setSlug(? string $slug) : self
     {
         $this->slug = $slug;
 
@@ -87,12 +87,12 @@ class Language
     /**
      * @return Collection|Restaurant[]
      */
-    public function getRestaurant(): Collection
+    public function getRestaurant() : Collection
     {
         return $this->restaurant;
     }
 
-    public function addRestaurant(Restaurant $restaurant): self
+    public function addRestaurant(Restaurant $restaurant) : self
     {
         if (!$this->restaurant->contains($restaurant)) {
             $this->restaurant[] = $restaurant;
@@ -101,7 +101,7 @@ class Language
         return $this;
     }
 
-    public function removeRestaurant(Restaurant $restaurant): self
+    public function removeRestaurant(Restaurant $restaurant) : self
     {
         if ($this->restaurant->contains($restaurant)) {
             $this->restaurant->removeElement($restaurant);

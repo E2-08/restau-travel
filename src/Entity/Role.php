@@ -24,7 +24,7 @@ class Role
     private $title;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\User", inversedBy="userRoles")
+     * @ORM\ManyToMany(targetEntity="App\Entity\User", mappedBy="userRole")
      */
     private $users;
 
@@ -67,8 +67,6 @@ class Role
     }
 
     /**
-     * This function allow to get users list
-     * 
      * @return Collection|User[]
      */
     public function getUsers() : Collection
@@ -76,16 +74,11 @@ class Role
         return $this->users;
     }
 
-    /**
-     * This function allow to adde user
-     *
-     * @param User $user
-     * @return self
-     */
     public function addUser(User $user) : self
     {
         if (!$this->users->contains($user)) {
             $this->users[] = $user;
+            $user->addUserRole($this);
         }
 
         return $this;
@@ -95,6 +88,7 @@ class Role
     {
         if ($this->users->contains($user)) {
             $this->users->removeElement($user);
+            $user->removeUserRole($this);
         }
 
         return $this;

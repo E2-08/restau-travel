@@ -1,0 +1,51 @@
+{% extends '/admin/base.html.twig' %}
+
+{% block title %}Nos magnifiques annonces{% endblock %}
+{% block body %}
+    <div class="Rtwrapper">
+        <div class="container">
+
+            {{form_start(form)}}
+
+            <div class=" mt-3 ">
+                {{form_row(form.name,{'value':restaurant.name})}}
+                <input type="text" name="_siret" id="siret" class="form-control" placeholder="Votre N° siret " required="required">
+            </div>
+            <div class=" d-flex flex-row justify-content-between">
+                <div class="flex1">
+                    {{form_row(form.phone,{'value':restaurant.phone})}}</div>
+                <div class="flex1">
+                    {{form_row(form.email,{'value':restaurant.email})}}</div>
+            </div>
+            <div class="d-flex flex-row justify-content-between">
+                <div class="flex1">{{form_row(form.timesolt,{'value':restaurant.timesolt})}}</div>
+                <div class="flex1">
+                    {{form_row(form.bookinglimit,{'value':restaurant.bookinglimit})}}</div>
+            </div>
+
+            {{form_row(form.coverimages,{'value':restaurant.coverimages})}}
+
+            {{form_row(form.adress,{'value':restaurant.adress})}}
+            <div class="d-flex flex-row justify-content-between">
+                <div class="flex1">{{form_row(form.city,{'value':restaurant.city})}}</div>
+                <div class="flex1">{{form_row(form.country,{'value':restaurant.country})}}</div>
+            </div>
+
+            Selectionez les diférentes langues dans les quelles le service peux se faire dans votre restaurant
+            <div class="d-flex flex-row justify-content-center mb-3">
+                {% for language in languages %}
+                    <div class="d-flex flex-row align-items-center justify-content-between ">
+                        <input type="checkbox" name="{{language.name}}" value="{{language.name}}">
+                        <div class=" mr-2 famfamfam-flag-{{language.flag}} ml-2"></div>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Continuez" class="btn btn-primary w100">
+            </div>
+            {{form_end(form)}}
+
+        </div>
+    </div>
+
+{% endblock %}

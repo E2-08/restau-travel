@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Page non trouvée{% endblock %}
+
+{% block body %}
+    <div class="Wrapper mbfooter">
+        <div class="container d-flex flex-row justify-content-center">
+            <div class="error">
+                <div class="error-code m-b-10 m-t-20">404
+                    <i class="fa fa-warning"></i>
+                </div>
+                <h3 class="font-bold">Nous n'avons pas trouvé la page ..</h3>
+
+                <div class="error-desc">
+                    Désolé, la page que vous recherchez est introuvable ou n'existe pas.
+                    <br/>
+                    Essayez d'actualiser la page ou cliquez sur le bouton ci-dessous pour revenir à la page d'accueil.
+                    <div>
+                        <a class=" login-detail-panel-button btn" href="{{path('restaurant_index')}}">
+                            <i class="fa fa-arrow-left"></i>
+                            retour à la liste d'annonce
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

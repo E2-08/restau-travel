@@ -6,14 +6,12 @@ use App\Entity\Comment;
 use Cocur\Slugify\Slugify;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\Common\Collections\ArrayCollection;
-use Symfony\Component\Validator\Constraints as UserInterfaceAssert;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-
-
-
+use Symfony\Component\Validator\Constraints as UserInterfaceAssert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
@@ -56,10 +54,7 @@ class User implements UserInterface
      */
     private $fullName;
 
-    /**
-     **@var integer
-     */
-    private $flagRole;
+
 
 
     /**
@@ -89,10 +84,6 @@ class User implements UserInterface
      */
     private $restaurants;
 
-    /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Role", mappedBy="users")
-     */
-    private $userRoles;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -108,6 +99,13 @@ class User implements UserInterface
      * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="author", orphanRemoval=true)
      */
     private $comments;
+
+    private $manager;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Role", inversedBy="users")
+     */
+    private $userRole;
 
 
     /**
@@ -130,9 +128,26 @@ class User implements UserInterface
     public function __construct()
     {
         $this->restaurants = new ArrayCollection();
-        $this->userRoles = new ArrayCollection();
         $this->bookings = new ArrayCollection();
         $this->comments = new ArrayCollection();
+        $this->userRole = new ArrayCollection();
+
+    }
+    public function serialize()
+    {
+    }
+
+    public function unserialize($serialized)
+    {
+    }
+
+    public function getSalt()
+    {
+        return null;
+    }
+
+    public function eraseCredentials()
+    {
     }
 
     public function getId() : ? int
@@ -151,6 +166,8 @@ class User implements UserInterface
 
         return $this;
     }
+    //
+
 
     public function getFullName() : ? string
     {
@@ -248,68 +265,16 @@ class User implements UserInterface
         return $this;
     }
 
-
-
-    public function getRoles()
-    {
-        $roles = $this->userRoles->map(function ($roles) {
-
-            if ($roles->getTitle() == 'ROLE_RESTORATOR') {
-                $this->flagRole = true;
-            }
-            return $roles->getTitle();
-
-        })->toArray();
-
-        $roles[] = 'ROLE_USER';
-
-        return $roles;
-    }
-
     public function getPassword()
     {
         return $this->hash;
     }
 
-    public function getSalt()
-    {
-    }
+
 
     public function getUsername()
     {
         return $this->email;
-    }
-
-    public function eraseCredentials()
-    {
-    }
-
-    /**
-     * @return Collection|Role[]
-     */
-    public function getuserRoles() : Collection
-    {
-        return $this->userRoles;
-    }
-
-    public function adduserRoles(Role $userRoles) : self
-    {
-        if (!$this->userRoles->contains($userRoles)) {
-            $this->userRoles[] = $userRoles;
-            $userRoles->getUsers($this);
-        }
-
-        return $this;
-    }
-
-    public function removeuserRoles(Role $userRoles) : self
-    {
-        if ($this->userRoles->contains($userRoles)) {
-            $this->userRoles->removeElement($userRoles);
-            $userRoles->removeUser($this);
-        }
-
-        return $this;
     }
 
 
@@ -325,17 +290,6 @@ class User implements UserInterface
         return $this;
     }
 
-
-    public function setFlagRole($flagrole)
-    {
-        // supprimer l'id user where role = restaurator
-        $this->flagRole = $flagrole;
-        return $this;
-    }
-    public function getFlagRole()
-    {
-        return $this->flagRole;
-    }
 
     /**
      * @return Collection|Booking[]
@@ -399,6 +353,41 @@ class User implements UserInterface
         return $this;
     }
 
+    public function getRoles()
+    {
+        $roles = $this->userRole->map(function ($roles) {
+            return $roles->getTitle();
+        })->toArray();
 
+        $roles[] = 'ROLE_USER';
+
+        return $roles;
+    }
+
+    /**
+     * @return Collection|Role[]
+     */
+    public function getUserRole() : Collection
+    {
+        return $this->userRole;
+    }
+
+    public function addUserRole(Role $userRole) : self
+    {
+        if (!$this->userRole->contains($userRole)) {
+            $this->userRole[] = $userRole;
+        }
+
+        return $this;
+    }
+
+    public function removeUserRole(Role $userRole) : self
+    {
+        if ($this->userRole->contains($userRole)) {
+            $this->userRole->removeElement($userRole);
+        }
+
+        return $this;
+    }
 
 }

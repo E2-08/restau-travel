@@ -1,0 +1,72 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+    {% if user is same as(app.user) %}
+        {% if user.fullName is not null %}
+            Page de
+            {{user.fullName}}
+        {% endif %}
+    {% endif %}
+{% endblock %}
+
+{% block body %}
+
+    {% if user is same as(app.user) %}
+        {% if app.user.roles[0] == "ROLE_RESTORATOR" %}
+            {% set restaurantList = user.restaurants %}
+            {% set bookingList = user.bookings %}
+        {% elseif app.user.roles[0] == "ROLE_USER" %}
+            {% set bookingList = user.bookings %}
+        {% endif %}
+        {% set userData = user %}
+
+        {% if bufferType == 'restaurant' %}
+            {% set buffer = restaurantList %}
+            {% set templete = 'list.html.twig' %}
+        {% endif %}
+
+        {% if bufferType == 'booking' %}
+            {% set buffer = bookingList %}
+            {% set templete = 'list.html.twig' %}
+        {% endif %}
+
+        {% if bufferType == 'account' %}
+            {% set buffer = user %}
+            {% set templete = 'accountDashboard.html.twig' %}
+        {% endif %}
+
+    {% endif %}
+
+    <div class="container">
+        {% if user is same as(app.user) %}
+            {% if bufferType != 'account' %}
+                <div class="row listbooking mt-3">
+                    <div class="col-md-4 mb-3">
+                        <div class="card w95 px-1">
+                            <div class="card-body">
+                                <h5 class="card-title">Special title treatment</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-8 px-1">
+                        {% include 'partials/' ~ templete with {
+                            'buffer' : buffer,
+                            'bufferType' : bufferType
+                        }
+ %}
+                    </div>
+
+                </div>
+            {% endif %}
+
+            {% if bufferType == 'account' %}
+
+                {% include 'user/' ~ templete with {
+                    'buffer' : buffer,
+                    'bufferType' : bufferType
+                }
+ %}
+            {% endif %}
+
+        {% endif %}
+    </div>
+{% endblock %}

@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends '/admin/base.html.twig' %}
 
 {% block title %}Nos magnifiques annonces{% endblock %}
 {% block body %}
@@ -19,7 +19,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card-title text-center">ghdvyvsvvsdh</div>
+
                 </dic>
                 <dic class="col">
                     <div class="card bg-dark text-white mb-3 text-center">
@@ -55,10 +55,10 @@
                         <div class="car-body">
                             <div class="row py-3">
                                 <div class="col-4">
-                                    <i class="fas fa-star fa-3x"></i>
+                                    <i class="fas fa-users fa-3x"></i>
                                 </div>
                                 <div class="col-8">
-                                    <h1>{{statdata.rating|number_format()}}</h1>
+                                    <h1>{{statdata.userscount}}</h1>
                                 </div>
                             </div>
                         </div>
@@ -67,40 +67,60 @@
             </div>
             <hr>
             <div class="row">
-                <div class="col-12">
+                <div class="col-6">
                     <div class="alert alert-success">
                         <h2>
                             <i class="fas fa-arrow-up"></i>
-                            Les reservations encours</h2>
-                        <table class="table-hover">
+                            Les tops restaurants</h2>
+                        <table class="table table-hover">
                             <thead>
                                 <tr>
-                                    <th class="px-3">Client</th>
-                                    <th class="px-3">Téléphone</th>
-                                    <th class="px-3">Email</th>
-                                    <th class="px-3">Date</th>
-                                    <th class="px-3">Heure</th>
-                                    <th class="px-3">Nombre</th>
-
+                                    <th class="text-centerpx-3">Nom</th>
+                                    <th class="text-centerpx-3">Ville</th>
+                                    <th class="text-centerpx-3">Note</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {% for item in statdata.bookings %}
+                                {% for item in bestRestaurant %}
                                     <tr>
-                                        <td class="px-3">{{item.booker.fullName}}</td>
-                                        <td class="px-3">{{item.booker.phone}}</td>
-                                        <td class="px-3">{{item.booker.email}}</td>
-                                        <td class="px-3">{{item.startDate|date('d/m/y')}}</td>
-                                        <td class="px-3">{{item.startDate|date('H:s')}}</td>
-                                        <td class="px-3">{{item.numberOfPeople}}</td>
+                                        <td class="text-centerpx-3">{{item.name}}</td>
+                                        <td class="text-centerpx-3">{{item.city}}</td>
+                                        <td class="text-center px-3">
+                                            <span class="badge badge-pill badge-dark">{{item.note|number_format(1,",", " ")}}</span>
+                                        </td>
                                     </tr>
                                 {% endfor %}
                             </tbody>
                         </table>
                     </div>
-
                 </div>
-                <div class="col"></div>
+                <div class="col-md-6">
+                    <div class="alert alert-danger">
+                        <h2>
+                            <i class="fas fa-arrow-down"></i>
+                            Les flops restaurants</h2>
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th class="text-centerpx-3">Nom</th>
+                                    <th class="text-centerpx-3">Ville</th>
+                                    <th class="text-centerpx-3">Note</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for item in worstRestaurant %}
+                                    <tr>
+                                        <td class="text-centerpx-3">{{item.name}}</td>
+                                        <td class="text-centerpx-3">{{item.city}}</td>
+                                        <td class="text-center px-3">
+                                            <span class="badge badge-pill badge-dark">{{item.note|number_format(1,",", " ")}}</span>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
             {#  #}
         </div>

@@ -1,0 +1,25 @@
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th class="text-centerpx-3">Nom</th>
+            <th class="text-centerpx-3">Ville</th>
+            <th class="text-centerpx-3">Note</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in data %}
+            <tr>
+                <td class="text-centerpx-3">{{item.name}}</td>
+                <td class="text-centerpx-3">{{item.city}}</td>
+                <td class="text-center px-3">
+                    <span class="badge badge-pill badge-dark">{{item.note|number_format(1,",", " ")}}</span>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{# {% include 'partials/statsrestaurant.html.twig' with {
+    'data' : bestRestaurant
+}
+ %} #}

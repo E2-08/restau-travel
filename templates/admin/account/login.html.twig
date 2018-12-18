@@ -1,0 +1,50 @@
+{% extends '/admin/base.html.twig' %}
+
+{% block title %}Connection au site!{% endblock %}
+
+{% block body %}
+
+    <div class="register-form-wrapper mbfooter">
+        <div class="container d-flex flex-column">
+            <div class=" card form-wapper">
+                <div class="d-flex header-form">
+                    <h4>Connexion à l'administration.</h4>
+                </div>
+                <div class="px-3 mt-3">
+
+                    {% if hasError %}
+                        <div class="alert alert-danger mt-3">
+                            Une erreur est survenue, le nom d'utilisateur ou alors le mot de passe est invalide
+                        </div>
+                    {% endif %}
+                    <form action="{{path('admin_account_login')}}" method="post">
+                        <div class="form-group">
+                            <input type="text" name="_username" id="email" class="form-control" placeholder="Adresse email ..." required="required" value="{{username}}">
+                        </div>
+                        <div class="form-group">
+
+                            <input type="password" name="_password" id="password" class="form-control" placeholder="Mot de passe ..." required="required">
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-success">
+                                Connexion
+                                <i class="fas fa-lock-open"></i>
+                            </button>
+                            <a href="{{path('restaurant_index')}}" class="btn btn-link">
+                                <i class="fas fa-arrow-circle-left"></i>
+                                Retour aux site
+                            </a>
+                        </div>
+                        <div class="form-group d-flex flex-row ">
+
+                            <a href="{{path('admin_account_register')}}">Inscription
+                            </a>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

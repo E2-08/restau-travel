@@ -7,10 +7,11 @@ use App\Entity\Restaurant;
 use App\Entity\PropertySearch;
 use App\Repository\LanguageRepository;
 use App\Interfaces\InterfaceRepository;
+use phpDocumentor\Reflection\Types\Integer;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bridge\Doctrine\RegistryInterface;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Egulias\EmailValidator\Exception\ExpectingATEXT;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @method Restaurant|null find($id, $lockMode = null, $lockVersion = null)
@@ -30,6 +31,23 @@ class RestaurantRepository extends ServiceEntityRepository
 
     }
 
+    /**
+     * This get est restaurants 
+     *
+     * @param Integer $limit
+     * @return void
+     */
+    public function findBestRestaurant($limit)
+    {
+        return $this->createQueryBuilder('r')
+            ->select('r as restaurants, AVG(c.rating) as avgRatings')
+            ->join('r.comments', 'c')
+            ->groupBy('r')
+            ->orderBy('avgRatings', 'DESC')
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult();
+    }
 
 //    /**
 //     * @return Restaurant[] Returns an array of Restaurant objects
@@ -37,10 +55,10 @@ class RestaurantRepository extends ServiceEntityRepository
     /*
     public function findByExampleField($value)
     {
-        return $this->createQueryBuilder('r')
-            ->andWhere('r.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('r.id', 'ASC')
+        return $this->createQueryBuilder(' r ')
+            ->andWhere(' r . exampleField = : val ')
+            ->setParameter(' val ', $value)
+            ->orderBy(' r . id ', ' ASC ')
             ->setMaxResults(10)
             ->getQuery()
             ->getResult()
@@ -51,9 +69,9 @@ class RestaurantRepository extends ServiceEntityRepository
     /*
     public function findOneBySomeField($value): ?Restaurant
     {
-        return $this->createQueryBuilder('r')
-            ->andWhere('r.exampleField = :val')
-            ->setParameter('val', $value)
+        return $this->createQueryBuilder(' r ')
+            ->andWhere(' r . exampleField = : val ')
+            ->setParameter(' val ', $value)
             ->getQuery()
             ->getOneOrNullResult()
         ;
@@ -77,10 +95,8 @@ class RestaurantRepository extends ServiceEntityRepository
         try {
 
             if ($search->getLanguage() != null) {
-                $language = new Language();
                 $repo = $this->manager->getRepository(Language::class);
                 $language = $repo->findSearchLanguage($search->getLanguage());
-
                 $query = $query->select('r')
                     ->leftJoin('r.languages', 'c')
                     ->addSelect('c')
@@ -92,10 +108,12 @@ class RestaurantRepository extends ServiceEntityRepository
                     ->setParameter('val', $search->getCity() . '%');
             }
 
+            $query = $query->setMaxResults($limit)->setFirstResult($offset);
+
             $query = $query->getQuery()
                 ->getResult();
-            return $query;
 
+            return $query;
         } catch (Expectin $e) {
             throw new Exception("Error: aucun résultats trouvé");
         }

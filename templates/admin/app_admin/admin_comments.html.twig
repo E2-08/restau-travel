@@ -1,0 +1,41 @@
+{% extends '/admin/base.html.twig' %}
+
+{% block title %}Nos magnifiques annonces{% endblock %}
+{% block body %}
+    <div class="Rtwrapper">
+        <div class="container">
+            <h2 >Gestions des comments</h2>
+            <table class="table table-striped  mt-3 table-list table-responsive-sm able-responsive-md">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Auteur</th>
+                        <th>Message</th>
+                        <th>Restaurant</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for comment in comments %}
+                        <tr>
+                            <td class="text-center">{{comment.id}}</td>
+                            <td class="text-center">{{comment.getAuthor.fullName}}</td>
+                            <td>{{comment.content}}</td>
+                            <td class="text-center">{{comment.getRestaurant.name}}</td>
+                            <td class="text-center">
+                                <a href="#" class="btn btn-primary">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <a href="#" class="delete_btn  btn-danger">
+                                    <i class="fas fa-trash"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+{% endblock %}

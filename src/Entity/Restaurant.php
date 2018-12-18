@@ -10,31 +10,6 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 
-
-/*Prenom
-Nom
-Nom restaurant
-Email
-phone
-Adresse
-code postal
-ville
-pays
-nombre total de reservation/j
-je souhaire recevoir les offres
-description
-Horaires d'ouverture
-ticket moyen
-
-Moyens de paiement
-type de restaurataion
-Ambiance
-Cuisine
-Déco
-Service
-Qualité/Prix*/
-
-
 /**
  * @ORM\Entity(repositoryClass="App\Repository\RestaurantRepository")
  */
@@ -120,7 +95,7 @@ class Restaurant
     private $comments;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Language", mappedBy="restaurant")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Language", mappedBy="restaurant",cascade={"persist"})
      */
     private $languages;
 
@@ -130,6 +105,19 @@ class Restaurant
      * @ORM\Column(type="integer")
      */
     private $bookinglimit;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Menu", inversedBy="restaurants")
+     */
+    private $menu;
+
+    /**
+     * Undocumented variable
+     *
+     * @var string
+     */
+    private $siret;
+
 
 
     /**
@@ -146,6 +134,7 @@ class Restaurant
             $slugify = new Slugify();
             $this->slug = $slugify->slugify($this->name);
         }
+
     }
 
     public function __construct()
@@ -155,6 +144,7 @@ class Restaurant
         $this->images = new ArrayCollection();
         $this->comments = new ArrayCollection();
         $this->languages = new ArrayCollection();
+        $this->menu = new ArrayCollection();
     }
 
     public function getId() : ? int
@@ -269,13 +259,13 @@ class Restaurant
         return $this;
     }
 
-    public function setConverimages(string $converimages) : self
+    public function setCoverimages(string $coverimages) : self
     {
-        $this->coverimages = $converimages;
+        $this->coverimages = $coverimages;
         return $this;
     }
 
-    public function getConverimages() : ? string
+    public function getCoverimages() : ? string
     {
         return $this->coverimages;
     }
@@ -454,6 +444,56 @@ class Restaurant
         return $this;
     }
 
+    /**
+     * @return Collection|Menu[]
+     */
+    public function getMenu() : Collection
+    {
+        return $this->menu;
+    }
+
+    public function addMenu(Menu $menu) : self
+    {
+        if (!$this->menu->contains($menu)) {
+            $this->menu[] = $menu;
+        }
+
+        return $this;
+    }
+
+    public function removeMenu(Menu $menu) : self
+    {
+        if ($this->menu->contains($menu)) {
+            $this->menu->removeElement($menu);
+        }
+
+        return $this;
+    }
 
 
+
+
+    /**
+     * Get undocumented variable
+     *
+     * @return  string
+     */
+    public function getSiret()
+    {
+        return $this->siret;
+    }
+
+    /**
+     * Set undocumented variable
+     *
+     * @param  string  $siret  Undocumented variable
+     *
+     * @return  self
+     */
+    public function setSiret(string $siret)
+    {
+        $this->siret = $siret;
+
+        return $this;
+    }
 }

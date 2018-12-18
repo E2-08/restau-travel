@@ -1,0 +1,74 @@
+<div class="mb-5" id="navbar-wraper">
+    <div class="container Rt-navbar">
+        <nav class="navbar navbar-expand-lg">
+            <h3>
+                <a class="Rt-link mr-3" href="{{path('restaurant_index')}}">
+                    Restau Travel - Admin
+                </a>
+            </h3>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="menu-berger"></span>
+                <span class="menu-berger"></span>
+                <span class="menu-berger"></span>
+            </button>
+
+            <div class="collapse navbar-collapse Rt-bg px-5" id="navbarColor03">
+                <ul class="navbar-nav ml-auto">
+                    {% if isAdmin == true %}
+                        <li class="navr-item">
+                            <h5>
+                                <a class="Rt-link mr-3" href="{{path('admin')}}">
+                                    <i class="fas fa-chart-line"></i>
+                                    Dashboard
+                                </a>
+                            </h5>
+                        </li>
+                        <li class="navr-item">
+                            <h5>
+                                <a class="Rt-link mr-3" href="{{path('admin_restaurants')}}">
+                                    <i class="fas fa-utensils"></i>
+                                    Restaurant
+                                </a>
+                            </h5>
+                        </li>
+                        <li class="navr-item">
+                            <h5>
+                                <a class="Rt-link mr-3" href="{{path('admin_users')}}">
+                                    <i class="fas fa-users"></i>
+                                    Utilisateurs
+                                </a>
+                            </h5>
+                        </li>
+                        <li class="navr-item">
+                            <h5>
+                                <a class="Rt-link mr-3" href="{{path('admin_comments')}}">
+                                    <i class="fas fa-comments"></i>
+                                    Commentaires
+                                </a>
+                            </h5>
+                        </li>
+                    {% endif %}
+
+                    <li class="nav-item dropdown d-flex flex-row">
+
+                        <a href="#" class="nav-link Rt-link dropdown-toggle" id="accountDropdownLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            {% if app.user != null %}
+                                <img src="{{asset('/uploads/avatars/' ~ app.user.avatar)}}" class="avatar avatar-mini mr-2" alt="Avatar de {{ app.user.fullName}}">{{app.user.firstname}}
+                            {% endif %}
+                        </a>
+
+                        <div class="dropdown-menu dropdwon-menu-left" aria-labelledby="accountDropdownLink">
+                            {% if isAdmin == false %}
+
+                                <a class="dropdown-item" href="{{path('admin_restaurant_account')}}">Mes infos</a>
+                                <div class="dropdown-divider"></div>
+                            {% endif %}
+                            <a class="dropdown-item" href="{{path('admin_account_logout')}}">Déconnexion</a>
+
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+</div>

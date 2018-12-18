@@ -1,0 +1,252 @@
+{% extends '/admin/base.html.twig' %}
+{% block title %}
+    {% if user is same as(app.user) %}
+        {% if user.fullName is not null %}
+            Page de
+            {{user.fullName}}
+        {% endif %}
+    {% endif %}
+{% endblock %}
+
+{% block body %}
+    <div class="user-account-wrapper d-flex flex-column">
+
+        <div class="container d-flex flex-column justify-content-between">
+            <div class="flx1 px-3">
+                <h4>
+                    <p>
+                        {{restaurant.name}}</p>
+                </h4>
+            </div>
+            <div class="flx1 container user-account-header d-flex flex-row justify-content-between flex-wrap">
+                <div class="flx1 mt-3">
+
+                    <div class="d-flex flex-column" id=" user-avatar">
+                        <div class="flex1"><img class="avatar-medium img-fluid w100" src="{{restaurant.coverimages}}" alt=" avatar de {{ restaurant.name}}" srcset=""></div>
+
+                        <div class="flex1 px-2">
+                            <strong>
+                                <p>{{restaurant.adress}}</p>
+
+                            </strong>
+
+                            <p>Ville :
+                                {{restaurant.city}}</p>
+                        </div>
+                        <pre>
+
+                        </pre>
+                    </div>
+                    <div class="w100">
+                        <a href="{{path('restaurant_admin',{'slug': 'bookings'})}}" class="list-group-item">Vos réservations</a>
+                        <a href="{{path('restaurant_admin',{'slug': 'comments'})}}" class="list-group-item">Les avis et les notes de vos clients</a>
+                        <a href="{{path('admin_restaurant_account_profil')}}" class="list-group-item">Vos informations</a>
+
+                    </div>
+                </div>
+
+                <div class="flx3 d-flex flex-column px-3 py-3">
+                    {% if flagview == 'bookings' %}
+
+                        {% if bookings | length > 0 %}
+
+                            {% for booking in bookings %}
+
+                                <div class=" d-flex ml-2 flex-row flex-wrap ">
+
+                                    <div class="col-md-4">
+                                        <img src="{{booking.booker.avatar}}" alt="bootsnipp" class="img-user-booking img-rounded img-responsive"/>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="well well-sm">
+                                            <div class="row">
+                                                <div class="col-xs-12 col-md-12 section-box">
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <h4>{{booking.booker.fullName}}</h4>
+                                                        </div>
+
+                                                    </div>
+                                                    <h6>
+                                                        télephone :
+                                                        {{booking.booker.phone}}</h6>
+                                                    <h6>Email :
+                                                        {{booking.booker.email}}</h6>
+
+                                                    <i class="far fa-calendar">
+                                                        <span class="mr-3">
+                                                            date de réseravtion
+                                                            {{booking.startDate}}</span></i>
+
+                                                    <i class="far fa-clock">
+                                                        <span>heure
+                                                            {{booking.startHour}}</span></i>
+                                                    <hr/>
+
+                                                </div>
+                                            </div>
+                                            <p>Réservation pour
+                                                {{booking.numberOfPeople}}
+                                                {% if booking.numberOfPeople > 1 %}
+                                                    personnes
+                                                {% else %}
+                                                    personne
+                                                {% endif %}
+
+                                            </p>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            {% endfor %}
+                        {% else %}
+                            <div class="bg bg-ligth">
+                                Vous n’avez pas encore de réservation. On ne peut pas vous laisser comme ça : pour vous inspirer, voici la liste des établissements les plus réservés dans votre ville.
+                            </div>
+                        {% endif %}
+                    {% endif %}
+                    {# avis ========================================================================== #}
+                    {% if flagview == 'comments' %}
+
+                        {% for comment in comments %}
+
+                            <div class="d-flex ml-2 flex-row flex-wrap ">
+                                <div class="bg bg-light px-3">
+                                    <div class="row px-3 pt-3">
+                                        <strong>{{comment.author.fullName}}</strong>
+                                        <span class="rt-star-sml ml-3 mr-3">&nbsp;&nbsp;
+                                            {% include 'partials/rating.html.twig' with {
+                                                'rating' : comment.rating
+                                            }
+ %}
+                                        </span>
+                                        <i class="far fa-calendar">
+                                            <span class="ml-2 mr-3">
+                                                Avis déposé le
+                                                {{comment.createdAt|date('d/m/y') }}</span></i>
+                                    </div>
+                                    <div class="row px-3 pb-3 ">
+                                        {{comment.content}}
+                                    </div>
+                                </div>
+
+                                <hr/>
+                            </div>
+
+                        {% endfor %}
+                    {% endif %}
+
+                    {% if flagview == 'info_restaurant' %}
+                        <div class="d-flex flex-row flex-wrap">
+                            <div class="col-md-12 ">
+
+                                {{form_start(form)}}
+                                {{form_row(form.name,{'value':restaurant.name})}}
+                                {{form_row(form.phone,{'value':restaurant.phone})}}
+                                {{form_row(form.email,{'value':restaurant.email})}}
+                                {{form_row(form.timesolt,{'value':restaurant.timesolt})}}
+                                {{form_row(form.bookinglimit,{'value':restaurant.bookinglimit})}}
+                                <input type="file" name="coverimages" value="coverimages}">
+                                {{form_row(form.adress,{'value':restaurant.adress})}}
+                                {{form_row(form.city,{'value':restaurant.city})}}
+                                {{form_row(form.country,{'value':restaurant.country})}}
+
+                                Selectionez les diférentes langues dans les quelles le service peux se faire dans votre restaurant
+                                <div class="d-flex flex-row justify-content-center mb-3">
+
+                                    {% set flag_fr = "" %}
+                                    {% set flag_ge = "" %}
+                                    {% set flag_uk = "" %}
+                                    {% set flag_it = "" %}
+                                    {% set flag_sp = "" %}
+                                    {% set flag_nl = "" %}
+                                    {% set flag_po = "" %}
+
+                                    {% for language in languages %}
+                                        {% if language.flag == "fr" %}
+                                            {% set flag_fr = "checked=checked" %}
+                                        {% endif %}
+                                        {% if language.flag == "it" %}
+                                            {% set flag_it = "checked=checked" %}
+                                        {% endif %}
+                                        {% if language.flag == "ge" %}
+                                            {% set flag_ge = "checked=checked" %}
+                                        {% endif %}
+                                        {% if language.flag == "uk" %}
+                                            {% set flag_uk = "checked=checked" %}
+                                        {% endif %}
+                                        {% if language.flag == "ps" %}
+                                            {% set flag_sp = "checked=checked"%}
+                                        {% endif %}
+                                        {% if language.flag == "po" %}
+                                            {% set flag_po = "checked=checked" %}
+                                        {% endif %}
+
+                                    {% endfor %}
+
+                                    {% for item in catalogLangue %}
+                                        {% if 'fr' == item.flag %}
+                                            <div class="d-flex flex-row align-items-center justify-content-between ">
+                                                <input type="checkbox" name="{{item.name}}" value="{{item.name}}" {{flag_fr}}>
+                                                <div class=" mr-2 famfamfam-flag-{{item.flag}} ml-2"></div>
+                                            </div>
+                                        {% endif %}
+                                        {% if "it" == item.flag %}
+                                            <div class="d-flex flex-row align-items-center justify-content-between">
+                                                <input type="checkbox" name="{{item.name}}" value="{{item.name}}" {{flag_it}}>
+                                                <div class=" mr-2 famfamfam-flag-{{item.flag}} ml-2"></div>
+                                            </div>
+                                        {% endif %}
+                                        {% if "uk" == item.flag %}
+                                            <div class="d-flex flex-row align-items-center justify-content-between ">
+                                                <input type="checkbox" name="{{item.name}}" value="{{item.name}}" {{flag_uk}}>
+                                                <div class=" mr-2 famfamfam-flag-{{item.flag}} ml-2"></div>
+                                            </div>
+                                        {% endif %}
+                                        {% if "sp" == item.flag %}
+                                            <div class="d-flex flex-row align-items-center justify-content-between ">
+                                                <input type="checkbox" name="{{item.name}}" value="{{item.name}}" {{flag_uk}}>
+                                                <div class=" mr-2 famfamfam-flag-{{item.flag}} ml-2"></div>
+                                            </div>
+                                        {% endif %}
+                                        {% if "po" == item.flag %}
+                                            <div class="d-flex flex-row align-items-center justify-content-between ">
+                                                <input type="checkbox" name="{{item.name}}" value="{{item.name}}" {{flag_po}}>
+                                                <div class=" mr-2 famfamfam-flag-{{item.flag}} ml-2"></div>
+                                            </div>
+                                        {% endif %}
+                                        {% if "nl" == item.flag %}
+                                            <div class="d-flex flex-row align-items-center justify-content-between ">
+                                                <input type="checkbox" name="{{item.name}}" value="{{item.name}}" {{flag_po}}>
+                                                <div class=" mr-2 famfamfam-flag-{{item.flag}} ml-2"></div>
+                                            </div>
+                                        {% endif %}
+                                        {% if "ge" == item.flag %}
+                                            <div class="d-flex flex-row align-items-center justify-content-between ">
+                                                <input type="checkbox" name="{{item.name}}" value="{{item.name}}" {{flag_po}}>
+                                                <div class=" mr-2 famfamfam-flag-{{item.flag}} ml-2"></div>
+                                            </div>
+                                        {% endif %}
+
+                                    {% endfor %}
+
+                                </div>
+                                <div class="form-group">
+                                    <input type="submit" value="Continuez" class="btn btn-primary w100">
+                                </div>
+                                {{form_end(form)}}
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+
+        </div>
+
+    </div>
+</div>
+</div>
+
+{% endblock %}

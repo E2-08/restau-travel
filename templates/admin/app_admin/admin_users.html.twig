@@ -1,0 +1,42 @@
+{% extends '/admin/base.html.twig' %}
+
+{% block title %}Nos magnifiques annonces{% endblock %}
+{% block body %}
+    <div class="Rtwrapper">
+        <div class="container">
+            <h2 >Gestions des users</h2>
+            <table class="table table-striped  mt-3 table-list table-responsive-sm able-responsive-md">
+                <thead>
+                    <tr >
+                        <th >Id</th>
+                        <th >Nom</th>
+                        <th >Email</th>
+                        <th >phone</th>
+                        <th >Action</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for user in users %}
+                        <tr>
+                            <td class="text-center">{{user.id}}</td>
+                            <td class="text-center">{{user.fullName}}</td>
+                            <td class="text-center">{{user.email}}</td>
+                            <td class="text-center">{{user.phone}}</td>
+                            <td class="text-center">
+                                <a href="#" class="btn btn-primary">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <a href="#" class="delete_btn  btn-danger">
+                                    <i class="fas fa-trash"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+{% endblock %}
