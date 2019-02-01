@@ -22,6 +22,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Services\StatsService;
 
 
 class RestaurantController extends AbstractController
@@ -44,12 +45,12 @@ class RestaurantController extends AbstractController
    * @param LanguageRepository $repoLanguage
    * @return response
    */
-  public function index($page = 1, Request $request, ObjectManager $manager, RestaurantRepository $repoRestaurant)
+  public function index($page = 1, Request $request, ObjectManager $manager, RestaurantRepository $repoRestaurant, StatsService $restaustat)
   {
     $restaurants = new Restaurant();
     $search = new PropertySearch();
 
-    $limit = 5;
+    $limit = 4;
     $offset = $page * $limit - $limit;
 
     $restaurants = $repoRestaurant->findBy([], [], $limit, $offset);
@@ -68,7 +69,9 @@ class RestaurantController extends AbstractController
       }
     }
 
-    $totalpages = count($restaurants);
+    $totalpages = $restaustat->getEntityCount('Restaurant');
+
+
     $pageacount = ceil($totalpages / $limit);
 
 

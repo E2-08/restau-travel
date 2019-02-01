@@ -142,7 +142,7 @@ class AppFixtures extends Fixture
 
 
 
-        for ($i = 1; $i <= 10; $i++) {
+        for ($i = 1; $i <= 17; $i++) {
             $restaurant = new Restaurant();
             $user = $restaurator[mt_rand(1, count($restaurator) - 1)];
             $language = $languages[mt_rand(1, count($languages) - 1)];
@@ -154,7 +154,7 @@ class AppFixtures extends Fixture
                 ->setPhone($faker->phoneNumber)
                 ->setCity($faker->city)
                 ->setTimesolt('24/24')
-                ->setConverimages($faker->imageUrl)
+                ->setCoverimages($i . '.jpg')
                 ->setCreatedAt(new \DateTime())
                 ->setSlug($faker->slug)
                 ->setAuthor($user)

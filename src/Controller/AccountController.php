@@ -95,7 +95,7 @@ class AccountController extends AbstractController
         throw new Exception($e->getMessage());
       }
 
-      $user->addUserRole($adminRole);
+
       $user->setHash($hash);
       $user->setAvatar($fileName);
       $manager->persist($user);

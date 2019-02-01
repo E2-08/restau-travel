@@ -8,7 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 class RestaurantControllerTest extends WebTestCase
 {
     public function testHome()
-    {cd
+    {
         $clientD = static::createClient();
         $clientD->request('GET', '/');
 

@@ -3,7 +3,7 @@
 
         <div class="card row gmd-1 flex-row mb-3">
             <div class="col-12 col-sm-3 col-md-3 col-xl-3 px-0">
-                <img class="imgListeRst" src="{{data.restaurant.coverimages}}" alt="" srcset="">
+                <img class="imgListeRst" src="{{asset('/uploads/coverimages/' ~ data.restaurant.coverimages)}}" alt="Image de présentation du restaurant {{data.restaurant.name}}" srcset="">
             </div>
             <div class="col-12 col-sm-9 col-md-9 col-xl-9 px-2">
                 <div class="row flex-column mt-3">
@@ -46,7 +46,7 @@
 
             <div class="row">
                 <div class="col-md-5">
-                    <img class="imgListeRst" src="{{data.coverimages}}" alt="" srcset="">
+                    <img class="imgListeRst" src="{{asset('/uploads/coverimages/' ~ data.coverimages)}}" alt="Imgage de présenation du restaurant {{ data.name}}" srcset="">
                 </div>
                 <div class="col-md-7 L-Rt-detail">
                     <div class="row">

@@ -15,9 +15,10 @@ class PropertySearchType extends AppType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
 
-        $builder->add('language', ChoiceType::class, $this->getConfig(false, 'Langue', array(
+        $builder->add('language', ChoiceType::class, $this->getConfig('les Langues', 'Langue', array(
             'required' => false,
-            'attr' => ['class' => 'text-center'], 'choices' => array(
+            'attr' => ['class' => 'text-center', 'label' => 'les Langues'], 'choices' => array(
+                'Toutes les langues'=>'',
                 'Français' => 'Français',
                 'Anglais' => 'Anglais',
                 'Portugais' => 'Portugais',
@@ -27,18 +28,9 @@ class PropertySearchType extends AppType
                 'Spagnol' => 'Spagnol'
             )
         )));
-            // ->add('city', ChoiceType::class, $this->getConfig(false, 'ville', array(
-            //     'required' => false, 'attr' => ['class' => 'text-center'],
-            //     'choices' => array(
-            //         'English' => 'en',
-            //         'Spanish' => 'Spanish',
-            //         'Bork' => 'muppets',
-            //         'Pirate' => 'arr',
-            //     ),
-            //     'preferred_choices' => array('muppets', 'arr')
-            // )));
-    }
+           // ->add('city', TextType::class, $this->getConfig(false, 'Ville', ['required' => false]));
 
+    }
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([

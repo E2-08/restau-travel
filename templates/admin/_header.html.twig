@@ -53,7 +53,8 @@
 
                         <a href="#" class="nav-link Rt-link dropdown-toggle" id="accountDropdownLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             {% if app.user != null %}
-                                <img src="{{asset('/uploads/avatars/' ~ app.user.avatar)}}" class="avatar avatar-mini mr-2" alt="Avatar de {{ app.user.fullName}}">{{app.user.firstname}}
+                                <img src="{{asset('/uploads/avatars/' ~ app.user.avatar)}}" class="avatar avatar-mini mr-2" alt="Avatar de {{ app.user.fullName}}">
+                                {{app.user.firstname}}
                             {% endif %}
                         </a>
 

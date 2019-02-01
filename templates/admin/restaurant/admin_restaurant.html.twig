@@ -22,7 +22,7 @@
                 <div class="flx1 mt-3">
 
                     <div class="d-flex flex-column" id=" user-avatar">
-                        <div class="flex1"><img class="avatar-medium img-fluid w100" src="{{restaurant.coverimages}}" alt=" avatar de {{ restaurant.name}}" srcset=""></div>
+                        <div class="flex1"><img class="avatar-medium img-fluid w100" src="{{asset('/uploads/coverimages/' ~ restaurant.coverimages)}}" alt=" avatar de {{ restaurant.name}}" srcset=""></div>
 
                         <div class="flex1 px-2">
                             <strong>
@@ -51,7 +51,6 @@
                         {% if bookings | length > 0 %}
 
                             {% for booking in bookings %}
-
                                 <div class=" d-flex ml-2 flex-row flex-wrap ">
 
                                     <div class="col-md-4">

@@ -220,6 +220,13 @@ th {
 .flx3 {
   flex: 3;
 }
+.card-header-top {
+  background-color: #2c656f;
+  height: 60px;
+}
+.top-rating {
+  color: #fff !important;
+}
 #user-account-avatar {
   min-width: 240px;
 }
@@ -723,12 +730,14 @@ hr.style1 {
 }
 #footer {
   bottom: 0;
-  color: ;
+  color: #fff;
 }
 .mbfooter {
-  margin-bottom: 255px;
+  margin-bottom: 100px;
 }
-
+.mbfooter-detail{
+  margin-bottom: 400px;
+}
 .footer-wrap {
   background: #0f141a;
   padding-top: 30px;
@@ -740,8 +749,11 @@ hr.style1 {
 .footer {
   width: 100%;
   background: #0f141a;
-  height: 250px;
+  height: 350px;
   color: #ffffff;
+}
+.footerContent {
+  width: 300px;
 }
 
 .footer-wrap h3 {

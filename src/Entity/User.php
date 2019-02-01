@@ -1,7 +1,5 @@
 <?php
-
 namespace App\Entity;
-
 use App\Entity\Comment;
 use Cocur\Slugify\Slugify;
 use Doctrine\ORM\Mapping as ORM;
@@ -127,6 +125,7 @@ class User implements UserInterface
 
     public function __construct()
     {
+
         $this->restaurants = new ArrayCollection();
         $this->bookings = new ArrayCollection();
         $this->comments = new ArrayCollection();
