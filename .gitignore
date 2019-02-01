@@ -18,8 +18,10 @@
 ###> symfony/webpack-encore-bundle ###
 /node_modules/
 /public/build/
-/public/obento
-public/onepage
+/public/.env
+/public/obento/
+/public/onepage/
+/src/Migrations/
 npm-debug.log
 yarn-error.log
 ###< symfony/webpack-encore-bundle ###
