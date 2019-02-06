@@ -46,7 +46,7 @@ class AccountController extends AbstractController
     $error = $utils->getLastAuthenticationError();
     $username = $utils->getLastUsername();
 
-    dump($error);
+
     return $this->render('account/login.html.twig', array(
       'hasError' => $error !== null,
       'username' => $username
