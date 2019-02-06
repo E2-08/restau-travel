@@ -22,6 +22,8 @@
 /public/obento/
 /public/onepage/
 /src/Migrations/
+/public/porfolio/
+
 npm-debug.log
 yarn-error.log
 ###< symfony/webpack-encore-bundle ###
