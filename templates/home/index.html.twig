@@ -1,5 +1,8 @@
 {% extends 'base.html.twig' %}
 {% block title %}Nos magnifiques annonces{% endblock %}
+ {% block stylesheets %}
+  <link href="/css/homepage.css" id="rtl5-css" rel="stylesheet">
+ {% endblock %}
 {% block body %}
 
                     {% if restaurants | length > 0 %}
