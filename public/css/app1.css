@@ -1,3 +1,4 @@
+@import "./homepage.css";
 /* ================================nav bar */
 .navbar-toggler {
 }
@@ -741,7 +742,7 @@ hr.style1 {
 .mbfootere204 {
   margin-bottom: 355px;
 }
-.mb-e404{
+.mb-e404 {
   margin-bottom: 355px;
 }
 .footer-wrap {

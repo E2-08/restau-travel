@@ -1,0 +1,61 @@
+.wrapper-content {
+  width: 100%;
+  height: auto;
+}
+.box {
+  /* background-color: #839d2d; */
+  flex: 1;
+  min-width: 327px;
+  margin: 10px;
+  width: auto;
+  height: auto;
+}
+.section-home-2 .box {
+  height: 350px;
+}
+.flex-1 {
+  flex: 1;
+}
+.flex-2 {
+    flex: 1;
+  }
+.h100 {
+  height: 100%;
+}
+.box .btn {
+  width: 90%;
+  height: 80px;
+}
+
+.slider-box {
+    flex: 1;
+    background-color: black;
+    height: 200px;
+    width: 250px;
+}
+section .flex-1{
+    height: 150px;
+    min-width: 449px;
+    margin: 10px;
+} 
+section .flex{
+    flex: 1;
+    max-width: 210px;
+}
+.search{
+   height:100px;
+}
+.search input{
+  min-width:100%;
+ 
+}
+.search .flex-1{
+  margin: 5px;
+  min-width:250px;
+}
+.search .btn{
+  max-width:100%;
+  height: 50px;
+ 
+
+}

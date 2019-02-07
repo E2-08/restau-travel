@@ -75,12 +75,12 @@ class RestaurantController extends AbstractController
     $pageacount = ceil($totalpages / $limit);
 
 
-    return $this->render('restaurant/index.html.twig', [
+    return $this->render('home/index.html.twig', [
       'restaurants' => $restaurants,
       'form' => $form->createView(),
       'pageacount' => $pageacount,
       'currentpage' => $page,
-      'toprestaurants' => $repoRestaurant->findBestRestaurant(2)
+      'toprestaurants' => $repoRestaurant->findBestRestaurant(6)
     ]);
   }
 
