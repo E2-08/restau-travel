@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+{% block title %}Nos magnifiques annonces{% endblock %}
+{% block body %}
+
+                    {% if restaurants | length > 0 %}
+                        <div class="wrapper">
+                            <div class="container d-flex flex-row flex-wrap justify-content-between">
+                                {% for top in toprestaurants %}
+                                    <div class="box  card d-flex align-items-start flex-column ">
+                                        <img class="imgBside h100 w100" src="{{asset('/uploads/coverimages/' ~ top.restaurants.coverimages) }}" alt="Imgage de présenation du restaurant {{ top.restaurants.name}}">
+                                            <div class="p-2 ">
+                                                <h5 class="card-title">
+                                                    <a href="{{path('restaurant_show', {'slug': top.restaurants.slug})}}">
+                                                        <h4>
+                                                            {{top.restaurants.name}}</h4>
+                                                    </a>
+                                                </h5>
+                                            </div>
+                                            <div class="p-2">
+                                                <span class="d-flex flex-row">
+                                                    <i class="fas fa-map-marker-alt">
+                                                        {{top.restaurants.city}}
+                                                    </i>
+                                                </span>
+                                            </div>
+                                            <div class="p-2">
+                                                odio officiis laudantium! Minima nihil
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 Lorem ipsum dolor sit amet consectetur adipisicin
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                odio officiis laudantium! Minima nihils
+                                            </div>
+                                            <a class="btn mt-3 w100  mb-3 Rt-link align-self-center" href="{{path('restaurant_show', {'slug': top.restaurants.slug})}}">
+                                                <strong>Détail</strong>
+                                            </a>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                                <section class="container d-flex flex-row flex-wrap justify-content-between mb-5">
+                                    {% for top in toprestaurants %}
+                                        <div class="flex-1 card d-flex flex-row">
+                                            <div class="flex">
+                                                <img class="imgBside h100" src="{{asset('/uploads/coverimages/' ~ top.restaurants.coverimages) }}" alt="Imgage de présenation du restaurant {{ top.restaurants.name}}"></div>
+                                                <div class="flex-2 px-2">
+                                                    <div class="col-md-7 L-Rt-detail">
+                                                        <div class="row">
+                                                            <div class="col-md-12 px-4 py-4">
+                                                                <a href="{{path('restaurant_show', {'slug': top.restaurants.slug})}}">
+                                                                    <h4>
+                                                                        {{top.restaurants.name}}</h4>
+                                                                </a>
+                                                                <span class="rt-star-sml mt-3 mb-3">
+                                                                    {% include 'partials/rating.html.twig' with {
+                                    'rating' : top.restaurants.getRatingsAvg()
+                                }
+ %}
+                                                                </span>
+                                                                <h6>
+                                                                    {{top.restaurants.adress}}</h6>
+                                                                <h6></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            {% endfor %}
+                                        </section>
+                                    </div>
+                                {% endif %}
+                            {% endblock body %}
+                        
