@@ -1,9 +1,81 @@
 // Variables  ========================================
 
-$container-hiegth: 980px;
-
-// nav bar
 $navbarcolor: #2c656f;
 $navbar-text-color: #ffffff;
+$container-width: 70%;
+$home-page-box-min-width: 247px;
+$home-page-box-height: 390px;
+$section-width: 100%;
 
-// Home page
+// body
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+section {
+  flex-grow: 1;
+  width: $section-width;
+}
+// container
+.container {
+  margin: 0 auto;
+  width: $container-width;
+  min-width: 360px;
+  padding-right: 0;
+  padding-left: 0;
+  .best-ads-liste-wrapper {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    .box {
+      margin: 10px;
+      flex: 1;
+      min-width: $home-page-box-min-width;
+      height: $home-page-box-height;
+
+      img {
+        width: 100%;
+        height: 45%;
+        margin-bottom: 5px;
+      }
+    }
+  }
+  .most-reserved-resto-wraper {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding: 2px;
+    .box {
+      flex: 1;
+      flex-direction: row;
+      flex-wrap: wrap;
+      margin: 10px;
+      width: 47%;
+      min-width: ($home-page-box-min-width + 53);
+      height: ($home-page-box-height - 260);
+      .image {
+        flex: 1;
+        img {
+          width: 100%;
+          height: 100%;
+        }
+      }
+      .info {
+        flex: 2;
+        padding: 1rem;
+      }
+    }
+  }
+}
+// nav bar
+#setion-navbar {
+  background-color: $navbarcolor;
+  nav {
+    a {
+      color: $navbar-text-color;
+    }
+  }
+}

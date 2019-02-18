@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
+
+                    <title>
+                        Resatu-Travel -{% block title %}Welcome!{% endblock %}
+                    </title>
+                    <link crossorigin="anonymous" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" rel="stylesheet">
+                        <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+                            <link href="/css/rtl.css" id="rtl-css" rel="stylesheet">
+                                <link href="/css/famfamfam-flags.css" id="rtl4-css" rel="stylesheet">
+                                    <link href="/css/app1.css" id="rtl4-css" rel="stylesheet">
+                                        <link crossorigin="anonymous" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" rel="stylesheet">
+                                            <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+                                                {% block stylesheets %}{% endblock %}
+                                            </head>
+                                            <body style="">
+                                                <div class="mb-3" id="navbar-wraper">
+                                                    <div class="container Rt-navbar">
+                                                        <nav class="navbar navbar-expand-lg">
+                                                            <a class="Rt-link" href="{{path('restaurant_index')}}">
+                                                                <h3>Restau Travel</h3>
+                                                            </a>
+                                                            <button aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-target="#navbarColor03" data-toggle="collapse" type="button">
+                                                                <span class="menu-berger"></span>
+                                                                <span class="menu-berger"></span>
+                                                                <span class="menu-berger"></span>
+                                                            </button>
+                                                            <div class="collapse navbar-collapse Rt-bg px-5" id="navbarColor03">
+                                                                <ul class="navbar-nav mr-auto Rt-bg">
+                                                                    <li class="nav-item">
+                                                                        <a class="nav-link Rt-link" href="{{path('restaurant_index')}}">
+                                                                            <h5>Accueil</h5>
+                                                                        </a>
+                                                                    </li>
+                                                                </ul>
+                                                                <ul class="navbar-nav ml-auto">
+                                                                    {% if app.user %}
+                                                                        <li class="nav-item dropdown">
+                                                                            <a aria-expanded="false" aria-haspopup="true" class="nav-link Rt-link dropdown-toggle" data-toggle="dropdown" href="#" id="accountDropdownLink">
+                                                                                <img src="{{asset('/uploads/avatars/'~ app.user.avatar)}}" class="avatar avatar-mini mr-2" alt="Avatar de {{ app.user.fullName}}">
+                                                                                    {{app.user.fullName}}
+                                                                                </a>
+                                                                                <div class="dropdown-menu dropdwon-menu-right" aria-labelledby="accountDropdownLink">
+                                                                                    {% if app.user.roles[0] == "ROLE_RESTORATOR" %}
+                                                                                        <a class="dropdown-item" href="{{path('account_index_restaurants',{'slug':'restau'})}}">Mes restaurants</a>
+                                                                                        <a class="dropdown-item" href="{{path('restaurant_add_new')}}">Nouveau restaurant</a>
+                                                                                        <div class="dropdown-divider"></div>
+                                                                                        {% elseif app.user.roles[0] == "ROLE_USER" %}
+                                                                                        <a class="dropdown-item" href="{{path('account_booking')}}">Mes réservations</a>
+                                                                                        <div class="dropdown-divider"></div>
+                                                                                    {% endif %}
+                                                                                    <a class="dropdown-item" href="{{path('account_index')}}">Mon compte</a>
+                                                                                    <div class="dropdown-divider"></div>
+                                                                                    <div class="dropdown-divider"></div>
+                                                                                    <a class="dropdown-item" href="{{path('account_logout')}}">Déconnexion</a>
+                                                                                </div>
+                                                                            </li>
+                                                                            {% else %}
+                                                                            <li class="nav-item">
+                                                                                <a class="nav-link Rt-link" href="{{path('account_register')}}">
+                                                                                    <h5>Inscription</h5>
+                                                                                </a>
+                                                                            </li>
+                                                                            <li class="nav-item">
+                                                                                <a class="nav-link Rt-link" href=" {{path('account_login')}}">
+                                                                                    <h5>Connexion</h5>
+                                                                                </a>
+                                                                            </li>
+                                                                        {% endif %}
+                                                                    </ul>
+                                                                </div>
+                                                            </nav>
+                                                        </div>
+                                                    </div>
+                                                    {# Message flash #}
+                                                    {% for label, messages in app.flashes %}
+                                                        {% for message in messages %}
+                                                            <div class=" container alert alert-{{label}}" id="Alert-wraper">
+                                                                {{ message }}
+                                                            </div>
+                                                        {% endfor %}
+                                                    {% endfor %}
+                                                    {% block body %}{% endblock %}
+                                                    {% block footer %}
+                                                        {% include 'partials/footer.html.twig' %}
+                                                    {% endblock %}
+                                                    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+                                                    <script crossorigin="anonymous" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+                                                    <script crossorigin="anonymous" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+                                                    <script src="/js/app1.js"></script>
+                                                    {% block javascripts %}{% endblock %}
+                                                </body>
+                                            </html>
+                                        
